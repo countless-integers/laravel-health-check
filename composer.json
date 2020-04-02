@@ -40,5 +40,17 @@
             "CountlessIntegers\\UnitTests\\": "./tests/unit",
             "CountlessIntegers\\FunctionalTests\\": "./tests/functional"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CountlessIntegers\\Providers\\ServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "php ./vendor/bin/codecept run",
+        "test-unit": "php ./vendor/bin/codecept run unit",
+        "static-analysis": "php ./vendor/bin/psalm"
     }
 }

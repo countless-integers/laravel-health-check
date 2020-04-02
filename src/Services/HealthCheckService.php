@@ -3,14 +3,10 @@ declare(strict_types=1);
 
 namespace CountlessIntegers\LaravelHealthCheck\Services;
 
-use CountlessIntegers\LaravelHealthCheck\Checkers\CacheConnectionChecker;
-use CountlessIntegers\LaravelHealthCheck\Checkers\DbConnectionChecker;
-use CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker;
 use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckResponseInterface;
 use CountlessIntegers\LaravelHealthCheck\Responses\DefaultResponse;
 use CountlessIntegers\LaravelHealthCheck\Responses\ServiceResponse;
 use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Config;
 use Throwable;
 
 class HealthCheckService
@@ -20,19 +16,9 @@ class HealthCheckService
      */
     private $config = [];
 
-    public function __construct()
+    public function __construct(array $config)
     {
-        $this->config = Config::get('app.health-checks') ?? [
-            'checkers' => [
-                DbConnectionChecker::class => [
-                    'query' => 'show tables'
-                ],
-                CacheConnectionChecker::class,
-                StorageChecker::class => [
-                    'log_path' => Config::get('app.log_path'),
-                ],
-            ],
-        ];
+        $this->config = $config;
     }
 
     public function checkServices(): HealthCheckResponseInterface

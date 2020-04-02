@@ -28,14 +28,16 @@ class HealthCheckServiceTest extends Unit
         $app = new Container();
         $app->singleton('app', Container::class);
         $app->singleton('config', Repository::class);
-        $app['config']->set('app.health-checks.checkers', [
-            DiskSpaceChecker::class => [
-                'min_free_space' => '1 MB',
-            ]
-        ]);
         Facade::setFacadeApplication($app);
 
-        $this->service = new HealthCheckService();
+        $config = [
+            'checkers' => [
+                DiskSpaceChecker::class => [
+                    'min_free_space' => '1 MB',
+                ],
+            ],
+        ];
+        $this->service = new HealthCheckService($config);
     }
 
     /**
