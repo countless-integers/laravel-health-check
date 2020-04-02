@@ -1,0 +1,14 @@
+language: php
+php:
+  - '7.3'
+
+install:
+  - composer install
+
+# Disable x-debug to speed up things
+before_install: phpenv config-rm xdebug.ini
+
+script:
+  - php vendor/bin/psalm
+  - php vendor/bin/codecept run
+

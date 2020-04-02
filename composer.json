@@ -1,0 +1,44 @@
+{
+    "name": "countless-integers/laravel-health-check",
+    "description": "Customizable health-checks integrated with the Laravel framework",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "health",
+        "health-check"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adrian",
+            "email": "totcha@gazeta.pl"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "illuminate/container": "^5.5|^6",
+        "illuminate/database": "^5.5|^6",
+        "illuminate/support": "^5.5|^6",
+        "illuminate/http": "^5.5|^6"
+    },
+    "require-dev": {
+        "codeception/codeception": "^4.1",
+        "codeception/mockery-module": "^0.4.0",
+        "codeception/module-asserts": "^1.1",
+        "codeception/module-phpbrowser": "^1.0.0",
+        "vimeo/psalm": "^3.10",
+        "codeception/module-laravel5": "^1.1",
+        "illuminate/config": "^5.5|^6"
+    },
+    "autoload": {
+        "psr-4": {
+            "CountlessIntegers\\LaravelHealthCheck\\": "./src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CountlessIntegers\\UnitTests\\": "./tests/unit",
+            "CountlessIntegers\\FunctionalTests\\": "./tests/functional"
+        }
+    }
+}
