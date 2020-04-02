@@ -5,7 +5,7 @@ namespace CountlessIntegers\LaravelHealthCheck\Http\Controllers\v2;
 
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Response;
+use Illuminate\Http\Response;
 
 class HealthCheckController
 {
@@ -23,9 +23,8 @@ class HealthCheckController
     {
         $report = $this->health_check_service->checkServices();
         if ($report->isHealthy()) {
-            return Response::ok($report->toArray());
+            return new JsonResponse($report->toArray());
         }
-        return Response::error($report->toArray(), 500);
+        return new JsonResponse($report->toArray(), Response::HTTP_INTERNAL_SERVER_ERROR);
     }
-
 }

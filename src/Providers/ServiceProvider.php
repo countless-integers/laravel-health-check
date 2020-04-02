@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CountlessIntegers\Providers;
+namespace CountlessIntegers\LaravelHealthCheck\Providers;
 
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
 use Illuminate\Support\AggregateServiceProvider;
@@ -14,6 +14,8 @@ class ServiceProvider extends AggregateServiceProvider
         $this->publishes([
             __DIR__ . '/../../config/health-check.php' => config_path('health-check.php'),
         ]);
+
+        $this->loadRoutesFrom(__DIR__ . '/../Http/routes.php');
     }
 
     public function register()
