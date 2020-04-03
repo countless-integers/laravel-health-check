@@ -51,7 +51,7 @@
         "test": "./vendor/bin/codecept run",
         "test-unit": "./vendor/bin/codecept run unit",
         "test-unit-coverage": "./vendor/bin/codecept run unit --coverage-html",
-        "coverage-report": "open tests/_output/coverage/dashboard.html",
+        "coverage-report": "open tests/_output/coverage/index.html",
         "static-analysis": "./vendor/bin/psalm"
     }
 }
