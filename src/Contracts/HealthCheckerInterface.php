@@ -5,5 +5,5 @@ namespace CountlessIntegers\LaravelHealthCheck\Contracts;
 
 interface HealthCheckerInterface
 {
-    public function checkHealth(): HealthCheckResponseInterface;
+    public function checkHealth(): HealthCheckReportInterface;
 }

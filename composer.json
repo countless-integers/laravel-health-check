@@ -16,6 +16,7 @@
     ],
     "require": {
         "php": ">=7.3",
+        "ext-json": "*",
         "illuminate/container": "^5.5|^6",
         "illuminate/database": "^5.5|^6",
         "illuminate/support": "^5.5|^6",
@@ -52,6 +53,7 @@
         "test-unit": "./vendor/bin/codecept run unit",
         "test-unit-coverage": "./vendor/bin/codecept run unit --coverage-html",
         "coverage-report": "open tests/_output/coverage/index.html",
-        "static-analysis": "./vendor/bin/psalm"
+        "static-analysis": "./vendor/bin/psalm",
+        "qa": "./vendor/bin/psalm && ./vendor/bin/codecept run unit --coverage-html"
     }
 }

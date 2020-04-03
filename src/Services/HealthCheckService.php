@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace CountlessIntegers\LaravelHealthCheck\Services;
 
-use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckResponseInterface;
-use CountlessIntegers\LaravelHealthCheck\Responses\DefaultResponse;
-use CountlessIntegers\LaravelHealthCheck\Responses\ServiceResponse;
+use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckReportInterface;
+use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
+use CountlessIntegers\LaravelHealthCheck\Reports\AggregateReport;
 use Illuminate\Support\Facades\App;
 use Throwable;
 
@@ -21,9 +21,9 @@ class HealthCheckService
         $this->config = $config;
     }
 
-    public function checkServices(): HealthCheckResponseInterface
+    public function checkServices(): HealthCheckReportInterface
     {
-        $response = new ServiceResponse();
+        $report = new AggregateReport();
         foreach ($this->config['checkers'] as $key => $value) {
             $checker_class = $value;
             $checker_config = [];
@@ -33,14 +33,14 @@ class HealthCheckService
             }
             try {
                 $checker = App::make($checker_class, ['config' => $checker_config]);
-                $response->addCheckerReport($checker_class, $checker->checkHealth());
+                $report->addCheckerReport($checker_class, $checker->checkHealth());
             } catch (Throwable $exception) {
-                $response->addCheckerReport($checker_class, new DefaultResponse(false, [
+                $report->addCheckerReport($checker_class, new CheckerReport(false, [
                     'exception' => get_class($exception),
                     'exception_message' => $exception->getMessage(),
                 ]));
             }
         }
-        return $response;
+        return $report;
     }
 }

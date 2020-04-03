@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace CountlessIntegers\LaravelHealthCheck\Responses;
+namespace CountlessIntegers\LaravelHealthCheck\Reports;
 
-use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckResponseInterface;
+use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckReportInterface;
 
-class DefaultResponse implements HealthCheckResponseInterface
+class CheckerReport implements HealthCheckReportInterface
 {
     /**
      * @var bool
@@ -15,12 +15,12 @@ class DefaultResponse implements HealthCheckResponseInterface
     /**
      * @var array
      */
-    private $report;
+    private $details;
 
-    public function __construct(bool $is_healthy, array $report = [])
+    public function __construct(bool $is_healthy, array $details = [])
     {
         $this->is_healthy = $is_healthy;
-        $this->report = $report;
+        $this->details = $details;
     }
 
     public function isHealthy(): bool
@@ -28,9 +28,9 @@ class DefaultResponse implements HealthCheckResponseInterface
         return $this->is_healthy;
     }
 
-    public function getReport(): array
+    public function getDetails(): array
     {
-        return $this->report;
+        return $this->details;
     }
 
     /**
@@ -48,7 +48,7 @@ class DefaultResponse implements HealthCheckResponseInterface
     {
         return [
             'is_healthy' => $this->is_healthy,
-            'report' => $this->report,
+            'report' => $this->details,
         ];
     }
 }

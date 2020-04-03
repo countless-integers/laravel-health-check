@@ -6,8 +6,8 @@ namespace CountlessIntegers\LaravelHealthCheck\Contracts;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-interface HealthCheckResponseInterface extends Arrayable, Jsonable
+interface HealthCheckReportInterface extends Arrayable, Jsonable
 {
     public function isHealthy(): bool;
-    public function getReport(): array;
+    public function getDetails(): array;
 }

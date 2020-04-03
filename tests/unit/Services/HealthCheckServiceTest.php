@@ -46,15 +46,15 @@ class HealthCheckServiceTest extends Unit
         ];
         $service = new HealthCheckService($config);
 
-        $response = $service->checkServices();
+        $report = $service->checkServices();
 
-        $this->assertTrue($response->isHealthy());
-        $report = $response->getReport();
+        $this->assertTrue($report->isHealthy());
+        $details = $report->getDetails();
         // JsonType check would be nicer for this, but for now it's broken in codeception, so:
-        $this->assertArrayHasKey(DiskSpaceChecker::class, $report);
-        $this->assertArrayHasKey('is_healthy', $report[DiskSpaceChecker::class]);
-        $this->assertArrayHasKey('report', $report[DiskSpaceChecker::class]);
-        $this->assertEquals(true, $report[DiskSpaceChecker::class]['is_healthy']);
+        $this->assertArrayHasKey(DiskSpaceChecker::class, $details);
+        $this->assertArrayHasKey('is_healthy', $details[DiskSpaceChecker::class]);
+        $this->assertArrayHasKey('report', $details[DiskSpaceChecker::class]);
+        $this->assertEquals(true, $details[DiskSpaceChecker::class]['is_healthy']);
     }
 
     /**
@@ -71,15 +71,15 @@ class HealthCheckServiceTest extends Unit
         ];
         $service = new HealthCheckService($config);
 
-        $response = $service->checkServices();
+        $report = $service->checkServices();
 
-        $this->assertFalse($response->isHealthy());
-        $report = $response->getReport();
+        $this->assertFalse($report->isHealthy());
+        $details = $report->getDetails();
         // JsonType check would be nicer for this, but for now it's broken in codeception, so:
-        $this->assertArrayHasKey(LogFileChecker::class, $report);
-        $this->assertArrayHasKey('is_healthy', $report[LogFileChecker::class]);
-        $this->assertArrayHasKey('report', $report[LogFileChecker::class]);
-        $this->assertEquals(false, $report[LogFileChecker::class]['is_healthy']);
+        $this->assertArrayHasKey(LogFileChecker::class, $details);
+        $this->assertArrayHasKey('is_healthy', $details[LogFileChecker::class]);
+        $this->assertArrayHasKey('report', $details[LogFileChecker::class]);
+        $this->assertEquals(false, $details[LogFileChecker::class]['is_healthy']);
     }
 
     /**
@@ -96,12 +96,12 @@ class HealthCheckServiceTest extends Unit
         ];
         $service = new HealthCheckService($config);
 
-        $response = $service->checkServices();
+        $report = $service->checkServices();
 
-        $this->assertFalse($response->isHealthy());
-        $report = $response->getReport();
-        $this->assertArrayHasKey(DiskSpaceChecker::class, $report);
-        $this->assertArrayHasKey('exception', $report[DiskSpaceChecker::class]['report']);
-        $this->assertArrayHasKey('exception_message', $report[DiskSpaceChecker::class]['report']);
+        $this->assertFalse($report->isHealthy());
+        $details = $report->getDetails();
+        $this->assertArrayHasKey(DiskSpaceChecker::class, $details);
+        $this->assertArrayHasKey('exception', $details[DiskSpaceChecker::class]['report']);
+        $this->assertArrayHasKey('exception_message', $details[DiskSpaceChecker::class]['report']);
     }
 }

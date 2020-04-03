@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace CountlessIntegers\LaravelHealthCheck\Checkers;
 
 use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckerInterface;
-use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckResponseInterface;
-use CountlessIntegers\LaravelHealthCheck\Responses\DefaultResponse;
+use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckReportInterface;
+use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use Illuminate\Database\QueryException;
 use InvalidArgumentException;
 
@@ -22,7 +22,7 @@ class DiskSpaceChecker implements HealthCheckerInterface
         $this->config = $config;
     }
 
-    public function checkHealth(): HealthCheckResponseInterface
+    public function checkHealth(): HealthCheckReportInterface
     {
         $min_required_disk_space = $this->config['min_free_space'];
         if (!is_int($min_required_disk_space)) {
@@ -31,14 +31,14 @@ class DiskSpaceChecker implements HealthCheckerInterface
         $drive_path = $this->config['drive_path'] ?? '.';
         try {
             $free_disk_space = (int)disk_free_space($drive_path);
-            return new DefaultResponse(
+            return new CheckerReport(
                 $free_disk_space > $min_required_disk_space,
                 [
                     'free_disk_space' => $this->bytesToHuman($free_disk_space),
                 ]
             );
         } catch (QueryException $exception) {
-            return new DefaultResponse(false, [
+            return new CheckerReport(false, [
                 'error' => $exception->getMessage(),
             ]);
         }

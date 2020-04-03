@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace CountlessIntegers\LaravelHealthCheck\Checkers;
 
 use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckerInterface;
-use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckResponseInterface;
-use CountlessIntegers\LaravelHealthCheck\Responses\DefaultResponse;
+use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckReportInterface;
+use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use Illuminate\Database\QueryException;
 
 class LogFileChecker implements HealthCheckerInterface
@@ -20,13 +20,13 @@ class LogFileChecker implements HealthCheckerInterface
         $this->config = $config;
     }
 
-    public function checkHealth(): HealthCheckResponseInterface
+    public function checkHealth(): HealthCheckReportInterface
     {
         $path = $this->config['log_path'] ?? '/var/log/laravel.log';
         try {
-            return new DefaultResponse(is_writable($path));
+            return new CheckerReport(is_writable($path));
         } catch (QueryException $exception) {
-            return new DefaultResponse(false, [
+            return new CheckerReport(false, [
                 'error' => $exception->getMessage(),
             ]);
         }

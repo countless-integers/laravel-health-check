@@ -4,8 +4,8 @@ declare(strict_types=1);
 namespace CountlessIntegers\LaravelHealthCheck\Checkers;
 
 use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckerInterface;
-use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckResponseInterface;
-use CountlessIntegers\LaravelHealthCheck\Responses\DefaultResponse;
+use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckReportInterface;
+use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use Illuminate\Support\Facades\Storage;
 
 class StorageChecker implements HealthCheckerInterface
@@ -25,7 +25,7 @@ class StorageChecker implements HealthCheckerInterface
         $this->config = $config;
     }
 
-    public function checkHealth(): HealthCheckResponseInterface
+    public function checkHealth(): HealthCheckReportInterface
     {
         $drives = $this->config['drives'];
         $test_file = uniqid('health-check-file-', true);
@@ -37,7 +37,7 @@ class StorageChecker implements HealthCheckerInterface
                 'url' => Storage::disk($drive)->url($test_file),
             ];
         }
-        return new DefaultResponse(true, $this->report);
+        return new CheckerReport(true, $this->report);
     }
 
     /**
