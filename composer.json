@@ -25,9 +25,8 @@
         "codeception/codeception": "^4.1",
         "codeception/mockery-module": "^0.4.0",
         "codeception/module-asserts": "^1.1",
-        "codeception/module-phpbrowser": "^1.0.0",
         "vimeo/psalm": "^3.10",
-        "codeception/module-laravel5": "^1.1",
+        "ocramius/package-versions": "~1.4.2",
         "illuminate/config": "^5.5|^6"
     },
     "autoload": {
@@ -49,8 +48,10 @@
         }
     },
     "scripts": {
-        "test": "php ./vendor/bin/codecept run",
-        "test-unit": "php ./vendor/bin/codecept run unit",
-        "static-analysis": "php ./vendor/bin/psalm"
+        "test": "./vendor/bin/codecept run",
+        "test-unit": "./vendor/bin/codecept run unit",
+        "test-unit-coverage": "./vendor/bin/codecept run unit --coverage-html",
+        "coverage-report": "open tests/_output/coverage/dashboard.html",
+        "static-analysis": "./vendor/bin/psalm"
     }
 }
