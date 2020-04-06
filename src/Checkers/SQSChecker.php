@@ -28,7 +28,7 @@ class SQSChecker implements HealthCheckerInterface
     {
         if (empty($config['queue_url'])) {
             throw new InvalidArgumentException(
-                '`queue_url` configuration param is required'
+                '`queue_url` (type: string) configuration param is required'
             );
         }
         $this->config = $config;
