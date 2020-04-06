@@ -28,12 +28,16 @@ Some of the checkers can or need to be configured. List of available configurati
 
 Checker class | Configuration key | Supported Values | Default value
 ------------- | ------------------| ---------------- | -------------
-`CacheConnectionChecker` | - | - | -
-`DbConnectionChecker` | `query` | raw SQL query | `SHOW TABLES`
+`CacheChecker` | - | - | -
+`DbChecker` | `query` | raw SQL query | `SHOW TABLES`
 `DiskSpaceChecker` | `min_free_space` (required) | Value with a SI prefix (KB, MB, GB, TB), e.g. `1GB` | -
 `DiskSpaceChecker` | `drive_path` | mount path | `.`
 `LogFileChecker` | `log_path` | writable log path | `/var/log/laravel.log`
 `StorageChecker` | `drives` (required) | drive key configures in `filesystems` configuration | -
+`DynamodbChecker` | - | | -
+`SQSChecker` | `queue_url` (required) | queue url, used to identify the queue | -
+`PingChecker` | `domains` (required, []string) | list of urls to ping | -
+`PingChecker` | `timeout` (int) | timeout value for each check | `5` (sec)
 
 ## Contribution guidelines
 
