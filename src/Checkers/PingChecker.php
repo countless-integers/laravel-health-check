@@ -46,7 +46,7 @@ class PingChecker implements HealthCheckerInterface
         if (strpos($domain, 'https') === 0) {
             $port = 443;
         }
-        $domain = preg_replace('@https?//@', '', $domain);
+        $domain = preg_replace('@https?://@', '', $domain);
         $start_time = microtime(true);
         $file = fsockopen(
             $domain,
