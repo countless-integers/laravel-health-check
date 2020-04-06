@@ -6,8 +6,12 @@ namespace CountlessIntegers\LaravelHealthCheck\Checkers;
 use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckerInterface;
 use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckReportInterface;
 use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
-use Illuminate\Database\QueryException;
 
+/**
+ * Checks if the laravel log file is present and writable.
+ *
+ * @todo: abstract to "any file"
+ */
 class LogFileChecker implements HealthCheckerInterface
 {
     /**
@@ -23,12 +27,6 @@ class LogFileChecker implements HealthCheckerInterface
     public function checkHealth(): HealthCheckReportInterface
     {
         $path = $this->config['log_path'] ?? '/var/log/laravel.log';
-        try {
-            return new CheckerReport(is_writable($path));
-        } catch (QueryException $exception) {
-            return new CheckerReport(false, [
-                'error' => $exception->getMessage(),
-            ]);
-        }
+        return new CheckerReport(is_writable($path));
     }
 }

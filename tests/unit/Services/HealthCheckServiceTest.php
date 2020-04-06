@@ -19,11 +19,6 @@ class HealthCheckServiceTest extends Unit
      */
     protected $tester;
 
-    /**
-     * @var HealthCheckService
-     */
-    private $service;
-
     protected function _before()
     {
         $app = new Container();

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-use CountlessIntegers\LaravelHealthCheck\Http\Controllers\v2\HealthCheckController;
+use CountlessIntegers\LaravelHealthCheck\Http\Controllers\HealthCheckController;
 use Illuminate\Support\Facades\Route;
 
 Route::get(

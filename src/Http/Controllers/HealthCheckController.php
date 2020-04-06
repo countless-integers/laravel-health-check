@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace CountlessIntegers\LaravelHealthCheck\Http\Controllers\v2;
+namespace CountlessIntegers\LaravelHealthCheck\Http\Controllers;
 
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
 use Illuminate\Http\JsonResponse;

@@ -12,6 +12,7 @@ use InvalidArgumentException;
 class DiskSpaceChecker implements HealthCheckerInterface
 {
     private const UNITS = ['B', 'KB', 'MB', 'GB', 'TB'];
+
     /**
      * @var array
      */

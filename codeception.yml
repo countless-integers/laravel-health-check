@@ -18,4 +18,6 @@ coverage:
     enabled: true
     include:
         - src/*
-        - config/*
+    exclude:
+        - src/Http/routes.php
+

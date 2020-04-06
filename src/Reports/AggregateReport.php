@@ -27,10 +27,10 @@ class AggregateReport implements HealthCheckReportInterface
         return $this->report;
     }
 
-    public function addCheckerReport(string $name, HealthCheckReportInterface $response): self
+    public function addCheckerReport(string $name, HealthCheckReportInterface $report): self
     {
-        $this->is_healthy = $this->is_healthy && $response->isHealthy();
-        $this->report[$name] = $response->toArray();
+        $this->is_healthy = $this->is_healthy && $report->isHealthy();
+        $this->report[$name] = $report->toArray();
         return $this;
     }
 
