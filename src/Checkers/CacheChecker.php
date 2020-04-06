@@ -9,7 +9,7 @@ use CountlessIntegers\LaravelHealthCheck\Contracts\HealthCheckReportInterface;
 use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use Illuminate\Support\Facades\Cache;
 
-class CacheConnectionChecker implements HealthCheckerInterface
+class CacheChecker implements HealthCheckerInterface
 {
     public function checkHealth(): HealthCheckReportInterface
     {

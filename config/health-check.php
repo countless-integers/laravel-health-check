@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 return [
     'checkers' => [
-        \CountlessIntegers\LaravelHealthCheck\Checkers\CacheConnectionChecker::class,
-        \CountlessIntegers\LaravelHealthCheck\Checkers\DbConnectionChecker::class,
+        \CountlessIntegers\LaravelHealthCheck\Checkers\CacheChecker::class,
+        \CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker::class,
         \CountlessIntegers\LaravelHealthCheck\Checkers\LogFileChecker::class,
         \CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker::class => [
             'drives' => [

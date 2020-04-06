@@ -5,12 +5,12 @@ namespace CountlessIntegers\UnitTests\Checkers;
 
 use Carbon\Carbon;
 use Codeception\Test\Unit;
-use CountlessIntegers\LaravelHealthCheck\Checkers\CacheConnectionChecker;
+use CountlessIntegers\LaravelHealthCheck\Checkers\CacheChecker;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Facade;
 use Mockery;
 
-class CacheConnectionCheckerTest extends Unit
+class CacheCheckerTest extends Unit
 {
 
     /**
@@ -40,7 +40,7 @@ class CacheConnectionCheckerTest extends Unit
      */
     public function itWillSucceedIfAKeyCanBeSetAndRetrieved(): void
     {
-        $checker = new CacheConnectionChecker();
+        $checker = new CacheChecker();
 
         $this->cacheMock->expects()
             ->put()
@@ -74,7 +74,7 @@ class CacheConnectionCheckerTest extends Unit
      */
     public function itWillFailIfTheSetKeyDoesNotMatchTheRetrievedOne(): void
     {
-        $checker = new CacheConnectionChecker();
+        $checker = new CacheChecker();
 
         $this->cacheMock->expects()
             ->put()

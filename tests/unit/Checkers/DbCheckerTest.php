@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace CountlessIntegers\UnitTests\Checkers;
 
 use Codeception\Test\Unit;
-use CountlessIntegers\LaravelHealthCheck\Checkers\DbConnectionChecker;
+use CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker;
 use Illuminate\Container\Container;
 use Illuminate\Support\Facades\Facade;
 use Mockery;
 
-class DbConnectionCheckerTest extends Unit
+class DbCheckerTest extends Unit
 {
 
     /**
@@ -38,7 +38,7 @@ class DbConnectionCheckerTest extends Unit
      */
     public function itWillSucceedIfAKeyCanBeSetAndRetrieved(): void
     {
-        $checker = new DbConnectionChecker([
+        $checker = new DbChecker([
             'query' => 'SHOW TABLES;'
         ]);
 

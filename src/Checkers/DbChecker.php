@@ -9,7 +9,7 @@ use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
-class DbConnectionChecker implements HealthCheckerInterface
+class DbChecker implements HealthCheckerInterface
 {
     /**
      * @var array
