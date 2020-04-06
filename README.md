@@ -9,6 +9,11 @@ PHP 7.3+ is required.
     $ composer require countless-integers/laravel-health-check
     $ php artisan vendor:publish
     
+## Known issues
+
+* even though all checker classes are optional, all the libraries that they depend on are not
+* no aliases for check, instead check class names are used
+    
 ## Configuration 
 
 Package publishes its config to your project's and it can be found at `config/health-check.php`.
