@@ -20,7 +20,8 @@
         "illuminate/container": "^5.5|^6",
         "illuminate/database": "^5.5|^6",
         "illuminate/support": "^5.5|^6",
-        "illuminate/http": "^5.5|^6"
+        "illuminate/http": "^5.5|^6",
+        "aws/aws-sdk-php-laravel": "^3.5"
     },
     "require-dev": {
         "codeception/codeception": "^4.1",
