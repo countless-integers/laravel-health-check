@@ -8,7 +8,9 @@ use CountlessIntegers\LaravelHealthCheck\Http\Controllers\HealthCheckController;
 use CountlessIntegers\LaravelHealthCheck\Reports\AggregateReport;
 use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
+use Illuminate\Config\Repository;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Mockery;
 
@@ -24,10 +26,22 @@ class HealthCheckControllerTest extends Unit
      */
     private $controller;
 
-    protected function _before()
+    /**
+     * @var Repository
+     */
+    private $config;
+
+    /**
+     * @var Request|Mockery\LegacyMockInterface|Mockery\MockInterface
+     */
+    private $request;
+
+    protected function _before(): void
     {
         $this->health_check_service_mock = Mockery::mock(HealthCheckService::class);
-        $this->controller = new HealthCheckController($this->health_check_service_mock);
+        $this->config = new Repository();
+        $this->request = Mockery::mock(Request::class);
+        $this->controller = new HealthCheckController($this->health_check_service_mock, $this->config);
     }
 
     /**
@@ -41,8 +55,7 @@ class HealthCheckControllerTest extends Unit
             ->checkServices()
             ->andReturns($report);
 
-        /** @var JsonResponse $response */
-        $response = $this->controller->checkHealth();
+        $response = $this->controller->checkHealth($this->request);
 
         $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
         $this->assertEquals(
@@ -71,8 +84,7 @@ class HealthCheckControllerTest extends Unit
             ->checkServices()
             ->andReturns($report);
 
-        /** @var JsonResponse $response */
-        $response = $this->controller->checkHealth();
+        $response = $this->controller->checkHealth($this->request);
 
         $this->assertEquals(Response::HTTP_INTERNAL_SERVER_ERROR, $response->getStatusCode());
         $this->assertEquals(
@@ -91,5 +103,39 @@ class HealthCheckControllerTest extends Unit
             ],
             $response->getData(true)
         );
+    }
+
+    /**
+     * @test
+     */
+    public function itWillReturn404IfAccessTokenSpecifiedButNotPresent(): void
+    {
+        $this->config->set('health-check.access_token', 'whatever-value');
+        $this->request->expects()->query('token');
+
+        $response = $this->controller->checkHealth($this->request);
+
+        $this->assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
+    }
+
+    /**
+     * @test
+     */
+    public function itWillReturnResponseIfAccessTokenSpecifiedAndPresent(): void
+    {
+        $token = 'whatever-other-value';
+        $this->config->set('health-check.access_token', $token);
+        $this->request->expects()->query('token')->andReturn($token);
+        $report = (new AggregateReport)->addCheckerReport(
+            'bye-world',
+            new CheckerReport(true)
+        );
+        $this->health_check_service_mock->expects()
+            ->checkServices()
+            ->andReturns($report);
+
+        $response = $this->controller->checkHealth($this->request);
+
+        $this->assertEquals(Response::HTTP_OK, $response->getStatusCode());
     }
 }

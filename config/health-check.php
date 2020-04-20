@@ -26,4 +26,5 @@ return [
             'timeout' => 5,
         ],
     ],
+    'access_token' => null,
 ];
