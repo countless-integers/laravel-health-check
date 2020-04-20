@@ -39,7 +39,7 @@ class HealthCheckController
     {
         $access_token = $this->config->get('health-check.access_token');
         if ($access_token !== null && $access_token !== $request->query('token')) {
-            return new JsonResponse(null, Response::HTTP_NOT_FOUND);
+            return new JsonResponse(null, Response::HTTP_FORBIDDEN);
         }
         $report = $this->health_check_service->checkServices();
         if ($report->isHealthy()) {

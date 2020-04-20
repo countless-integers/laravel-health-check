@@ -115,7 +115,7 @@ class HealthCheckControllerTest extends Unit
 
         $response = $this->controller->checkHealth($this->request);
 
-        $this->assertEquals(Response::HTTP_NOT_FOUND, $response->getStatusCode());
+        $this->assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
     }
 
     /**
