@@ -25,7 +25,7 @@
     },
     "require-dev": {
         "codeception/codeception": "^4.1",
-        "codeception/mockery-module": "^0.4.0",
+        "codeception/mockery-module": "^0.4",
         "codeception/module-asserts": "^1.1",
         "vimeo/psalm": "^3.10",
         "ocramius/package-versions": "~1.4.2",
