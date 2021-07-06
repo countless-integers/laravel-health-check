@@ -26,8 +26,7 @@
         "codeception/codeception": "^4.1",
         "codeception/mockery-module": "^0.4",
         "codeception/module-asserts": "^1.1",
-        "vimeo/psalm": "^3.10 || ^4.0",
-        "ocramius/package-versions": "~1.4.2",
+        "vimeo/psalm": "^3.10",
         "illuminate/config": "^6|^7|^8"
     },
     "autoload": {
