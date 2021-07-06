@@ -4,7 +4,6 @@
     "type": "library",
     "keywords": [
         "laravel",
-        "health",
         "health-check"
     ],
     "license": "MIT",
