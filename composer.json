@@ -26,7 +26,7 @@
         "codeception/codeception": "^4.1",
         "codeception/mockery-module": "^0.4",
         "codeception/module-asserts": "^1.1",
-        "vimeo/psalm": "^3.10",
+        "vimeo/psalm": "^3.10 || ^4.0",
         "illuminate/config": "^6|^7|^8"
     },
     "autoload": {
