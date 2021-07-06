@@ -1,6 +1,6 @@
 # Laravel Health-Check
 
-[![Build Status](https://travis-ci.com/countless-integers/laravel-health-check.svg?branch=master)](https://travis-ci.com/countless-integers/laravel-health-check)
+![build](https://github.com/countless-integers/laravel-health-check/actions/workflows/php.yml/badge.svg)
 
 ## Installation
 
