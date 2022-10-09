@@ -18,7 +18,7 @@ class CacheCheckerTest extends Unit
      */
     private $cacheMock;
 
-    protected function _before()
+    protected function _before(): void
     {
         $app = new Container();
         $app->singleton('app', Container::class);
@@ -27,7 +27,6 @@ class CacheCheckerTest extends Unit
             return $this->cacheMock;
         });
         Facade::setFacadeApplication($app);
-        codecept_debug('ping');
     }
 
     /**
@@ -55,8 +54,7 @@ class CacheCheckerTest extends Unit
             ->with(Mockery::capture($get_key))
             ->andReturnUsing(static function () use (&$value) {
                 return $value;
-            })
-        ;
+            });
 
         $report = $checker->checkHealth();
 
