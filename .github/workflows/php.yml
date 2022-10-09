@@ -12,13 +12,27 @@ jobs:
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: true
       matrix:
-        php: [ 8.0, 8.1 ]
+        php: 
+          - 8.0
+          - 8.1
+        laravel: 
+          - 6.*
+          - 7.*
+          - 8.*
+        dependency-version: 
+          - prefer-lowest
+          - prefer-stable
+        include:
+          - laravel: 6.*
+          - laravel: 7.*
+          - laravel: 8.*
 
-    name: PHP${{ matrix.php }}
+    name: PHP${{ matrix.php }} - Laravel${{ matrix.laravel }} - ${{ matrix.stability }}
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
@@ -30,22 +44,21 @@ jobs:
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
 
-    - name: Cache Composer packages
-      id: composer-cache
-      uses: actions/cache@v2
-      with:
-        path: vendor
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-php${{ matrix.php }}
-        restore-keys: |
-          ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-php${{ matrix.php }}
-          ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
-          ${{ runner.os }}-composer-
+    # - name: Cache Composer packages
+    #   id: composer-cache
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: vendor
+    #     key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-php${{ matrix.php }}
+    #     restore-keys: |
+    #       ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}-php${{ matrix.php }}
+    #       ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+    #       ${{ runner.os }}-composer-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress
-
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+      run: |
+        composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+        composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
     - name: Run static analysis
       run: composer run-script static-analysis
