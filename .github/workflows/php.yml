@@ -16,7 +16,6 @@ jobs:
       matrix:
         php: 
           - 8.0
-          - 8.1
         laravel: 
           - 6.*
           - 7.*
