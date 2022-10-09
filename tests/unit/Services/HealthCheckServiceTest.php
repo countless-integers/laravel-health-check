@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace CountlessIntegers\UnitTests\Services;
 
-use Codeception\PHPUnit\Constraint\JsonType;
 use Codeception\Test\Unit;
 use CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker;
 use CountlessIntegers\LaravelHealthCheck\Checkers\LogFileChecker;
