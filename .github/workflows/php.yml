@@ -41,8 +41,8 @@ jobs:
         tools: composer:v2
         coverage: xdebug
 
-    - name: Validate composer.json and composer.lock
-      run: composer validate --strict
+    # - name: Validate composer.json and composer.lock
+      # run: composer validate --strict
 
     # - name: Cache Composer packages
     #   id: composer-cache
