@@ -57,8 +57,20 @@ jobs:
 
     - name: Install dependencies
       run: |
-        composer require "laravel/framework:${{ matrix.laravel }}" --no-interaction --no-update
-        composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+        composer require \
+          "illuminate/container:${{ matrix.laravel }}" \
+          "illuminate/database:${{ matrix.laravel }}" \
+          "illuminate/support:${{ matrix.laravel }}" \
+          "illuminate/http:${{ matrix.laravel }}" \
+          --no-interaction \
+          --no-update
+        composer update \
+          --${{ matrix.stability }} \
+          --prefer-dist \
+          --no-interaction
+
+    - name: List Installed Dependencies
+      run: composer show -D
 
     - name: Run static analysis
       run: composer run-script static-analysis
