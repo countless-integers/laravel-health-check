@@ -23,10 +23,10 @@
         "aws/aws-sdk-php-laravel": "^3.5"
     },
     "require-dev": {
-        "codeception/codeception": "^4.1",
-        "codeception/mockery-module": "^0.4",
-        "codeception/module-asserts": "^1.1",
-        "vimeo/psalm": "^3.10 || ^4.0",
+        "codeception/codeception": "^5.0",
+        "codeception/mockery-module": "^0.5.0",
+        "codeception/module-asserts": "^3.0",
+        "vimeo/psalm": "^4.28",
         "illuminate/config": "^6|^7|^8"
     },
     "autoload": {
