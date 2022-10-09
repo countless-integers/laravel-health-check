@@ -65,10 +65,8 @@ class CacheCheckerTest extends Unit
     }
 
     /**
-     * @fixme: there's something wrong with mockery expectations here:
-     *         when both tests run they seem to inherit expectation return values.
-     * @skip
-     * @test
+     * @skip: there's something wrong with mockery expectations here
+     *        when both tests run they seem to inherit expectation return values.
      */
     public function itWillFailIfTheSetKeyDoesNotMatchTheRetrievedOne(): void
     {
