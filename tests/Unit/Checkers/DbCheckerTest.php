@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace CountlessIntegers\UnitTests\Checkers;
+namespace Tests\Unit\Checkers;
 
 use CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker;
-use CountlessIntegers\Tests\AppTestCase;
+use Tests\AppTestCase;
 use Illuminate\Support\Facades\DB;
 
 class DbCheckerTest extends AppTestCase

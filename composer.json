@@ -36,7 +36,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CountlessIntegers\\Tests\\": "./tests"
+            "Tests\\": "tests/"
         }
     },
     "extra": {
@@ -48,9 +48,9 @@
     },
     "scripts": {
         "test": "./vendor/bin/phpunit",
-        "test-unit": "./vendor/bin/phpunit -- ./tests/Unit",
-        "test-coverage": "./vendor/bin/phpunit --coverage-html ./tests/coverage-report",
+        "test-unit": "./vendor/bin/phpunit --testsuite unit",
+        "test-coverage": "./vendor/bin/phpunit --testsuite unit --coverage-html ./tests/coverage-report",
         "static-analysis": "./vendor/bin/psalm",
-        "qa": "./vendor/bin/psalm && ./vendor/bin/phpunit --coverage-html ./tests/coverage-report"
+        "qa": "./vendor/bin/psalm && ./vendor/bin/phpunit --testsuite unit --coverage-html ./tests/coverage-report"
     }
 }
