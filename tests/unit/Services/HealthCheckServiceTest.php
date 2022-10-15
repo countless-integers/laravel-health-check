@@ -4,14 +4,10 @@ declare(strict_types=1);
 
 namespace CountlessIntegers\UnitTests\Services;
 
-use Codeception\Test\Unit;
 use CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker;
 use CountlessIntegers\LaravelHealthCheck\Checkers\LogFileChecker;
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
 use CountlessIntegers\Tests\AppTestCase;
-use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Facade;
-use Illuminate\Config\Repository;
 use Illuminate\Support\Facades\Config;
 
 class HealthCheckServiceTest extends AppTestCase
