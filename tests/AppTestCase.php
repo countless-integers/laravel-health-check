@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Aws\Laravel\AwsServiceProvider;
 use CountlessIntegers\LaravelHealthCheck\Http\Controllers\HealthCheckController;
 use CountlessIntegers\LaravelHealthCheck\Providers\ServiceProvider;
 use Illuminate\Contracts\Foundation\Application;
@@ -17,6 +18,14 @@ class AppTestCase extends TestCase
     {
         return [
             ServiceProvider::class,
+            AwsServiceProvider::class,
+        ];
+    }
+
+    protected function getPackageAliases($app)
+    {
+        return [
+            'AWS' => \Aws\Laravel\AwsFacade::class,
         ];
     }
 
