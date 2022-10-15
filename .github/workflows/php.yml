@@ -73,8 +73,8 @@ jobs:
       run: composer show -D
 
     - name: Run static analysis
-      run: composer run-script static-analysis
+      run: composer static-analysis
 
     - name: Run tests
-      run: composer run-script test-unit-coverage
+      run: composer test-coverage
 
