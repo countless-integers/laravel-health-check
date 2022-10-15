@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace CountlessIntegers\UnitTests\Http\Controllers;
+namespace Tests\Unit\Http\Controllers;
 
 use CountlessIntegers\LaravelHealthCheck\Http\Controllers\HealthCheckController;
 use CountlessIntegers\LaravelHealthCheck\Reports\AggregateReport;
 use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
-use CountlessIntegers\Tests\AppTestCase;
+use Tests\AppTestCase;
 use Illuminate\Config\Repository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CountlessIntegers\Tests;
+namespace Tests;
 
 use CountlessIntegers\LaravelHealthCheck\Http\Controllers\HealthCheckController;
 use CountlessIntegers\LaravelHealthCheck\Providers\ServiceProvider;

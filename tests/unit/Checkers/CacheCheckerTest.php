@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace CountlessIntegers\UnitTests\Checkers;
+namespace Tests\Unit\Checkers;
 
 use Carbon\Carbon;
 use CountlessIntegers\LaravelHealthCheck\Checkers\CacheChecker;
-use CountlessIntegers\Tests\AppTestCase;
+use Tests\AppTestCase;
 use Illuminate\Support\Facades\Cache;
 use Mockery;
 

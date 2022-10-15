@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace CountlessIntegers\UnitTests\Checkers;
+namespace Tests\Unit\Checkers;
 
 use CountlessIntegers\LaravelHealthCheck\Checkers\LogFileChecker;
-use CountlessIntegers\Tests\AppTestCase;
+use Tests\AppTestCase;
 
 class LogFileCheckerTest extends AppTestCase
 {
