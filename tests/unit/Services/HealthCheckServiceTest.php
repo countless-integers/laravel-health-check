@@ -1,49 +1,33 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CountlessIntegers\UnitTests\Services;
 
-use Codeception\PHPUnit\Constraint\JsonType;
-use Codeception\Test\Unit;
 use CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker;
 use CountlessIntegers\LaravelHealthCheck\Checkers\LogFileChecker;
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
-use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Facade;
-use Illuminate\Config\Repository;
+use CountlessIntegers\Tests\AppTestCase;
+use Illuminate\Support\Facades\Config;
 
-class HealthCheckServiceTest extends Unit
+class HealthCheckServiceTest extends AppTestCase
 {
-    /**
-     * @var \UnitTester
-     */
-    protected $tester;
-
-    protected function _before()
-    {
-        $app = new Container();
-        $app->singleton('app', Container::class);
-        $app->singleton('config', Repository::class);
-        Facade::setFacadeApplication($app);
-    }
-
-    /**
-     * @test
-     */
+    /** @test */
     public function itCanReportHealth(): void
     {
-        $config = [
-            'checkers' => [
+        Config::set(
+            'health-check.checkers',
+            [
                 DiskSpaceChecker::class => [
                     'min_free_space' => '1 MB',
                 ],
             ],
-        ];
-        $service = new HealthCheckService($config);
+        );
+        $service = $this->app->make(HealthCheckService::class);
 
         $report = $service->checkServices();
 
-        $this->assertTrue($report->isHealthy());
+        $this->assertTrue($report->isHealthy(), 'It should be healthy, but got ' . json_encode($report));
         $details = $report->getDetails();
         // JsonType check would be nicer for this, but for now it's broken in codeception, so:
         $this->assertArrayHasKey(DiskSpaceChecker::class, $details);
@@ -52,19 +36,18 @@ class HealthCheckServiceTest extends Unit
         $this->assertEquals(true, $details[DiskSpaceChecker::class]['is_healthy']);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itCanReportLackOfHealth(): void
     {
-        $config = [
-            'checkers' => [
+        Config::set(
+            'health-check.checkers',
+            [
                 LogFileChecker::class => [
                     'log_path' => '/not-accessible',
                 ],
             ],
-        ];
-        $service = new HealthCheckService($config);
+        );
+        $service = $this->app->make(HealthCheckService::class);
 
         $report = $service->checkServices();
 
@@ -77,19 +60,18 @@ class HealthCheckServiceTest extends Unit
         $this->assertEquals(false, $details[LogFileChecker::class]['is_healthy']);
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itWillNotCrashBecauseOfAChecker(): void
     {
-        $config = [
-            'checkers' => [
+        Config::set(
+            'health-check.checkers',
+            [
                 DiskSpaceChecker::class => [
                     'min_free_space' => '1 UnsupportedUnit',
                 ],
             ],
-        ];
-        $service = new HealthCheckService($config);
+        );
+        $service = $this->app->make(HealthCheckService::class);
 
         $report = $service->checkServices();
 

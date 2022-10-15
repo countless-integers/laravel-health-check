@@ -1,33 +1,22 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CountlessIntegers\UnitTests\Checkers;
 
 use Carbon\Carbon;
-use Codeception\Test\Unit;
 use CountlessIntegers\LaravelHealthCheck\Checkers\CacheChecker;
-use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Facade;
+use CountlessIntegers\Tests\AppTestCase;
+use Illuminate\Support\Facades\Cache;
 use Mockery;
 
-class CacheCheckerTest extends Unit
+class CacheCheckerTest extends AppTestCase
 {
+    private CacheChecker $checker;
 
-    /**
-     * @var Mockery\LegacyMockInterface|Mockery\MockInterface
-     */
-    private $cacheMock;
-
-    protected function _before()
+    public function setUp(): void
     {
-        $app = new Container();
-        $app->singleton('app', Container::class);
-        $this->cacheMock = Mockery::mock();
-        $app->singleton('cache', function () {
-            return $this->cacheMock;
-        });
-        Facade::setFacadeApplication($app);
-        codecept_debug('ping');
+        $this->checker = new CacheChecker();
     }
 
     /**
@@ -40,25 +29,21 @@ class CacheCheckerTest extends Unit
      */
     public function itWillSucceedIfAKeyCanBeSetAndRetrieved(): void
     {
-        $checker = new CacheChecker();
-
-        $this->cacheMock->expects()
-            ->put()
+        Cache::shouldReceive('put')
+            ->once()
             ->with(
                 Mockery::capture($key),
                 Mockery::capture($value),
                 Mockery::type(Carbon::class)
             );
-
-        $this->cacheMock->expects()
-            ->get()
+        Cache::shouldReceive('get')
+            ->once()
             ->with(Mockery::capture($get_key))
             ->andReturnUsing(static function () use (&$value) {
                 return $value;
-            })
-        ;
+            });
 
-        $report = $checker->checkHealth();
+        $report = $this->checker->checkHealth();
 
         $this->assertTrue($report->isHealthy());
         $this->assertEmpty($report->getDetails());
@@ -66,31 +51,22 @@ class CacheCheckerTest extends Unit
         $this->assertNotEquals($key, $value);
     }
 
-    /**
-     * @fixme: there's something wrong with mockery expectations here:
-     *         when both tests run they seem to inherit expectation return values.
-     * @skip
-     * @test
-     */
+    /** @test */
     public function itWillFailIfTheSetKeyDoesNotMatchTheRetrievedOne(): void
     {
-        $checker = new CacheChecker();
-
-        $this->cacheMock->expects()
-            ->put()
+        Cache::shouldReceive('put')
+            ->once()
             ->with(
                 Mockery::capture($key),
                 Mockery::capture($value),
                 Mockery::type(Carbon::class)
             );
-
-        $this->cacheMock->expects()
-            ->get()
+        Cache::shouldReceive('get')
+            ->once()
             ->with(Mockery::capture($get_key))
-            ->andReturn('some-value')
-        ;
+            ->andReturn('some-value');
 
-        $report = $checker->checkHealth();
+        $report = $this->checker->checkHealth();
 
         $this->assertFalse($report->isHealthy());
         $this->assertEmpty($report->getDetails());

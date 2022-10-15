@@ -1,33 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CountlessIntegers\UnitTests\Checkers;
 
-use Codeception\Test\Unit;
 use CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker;
-use Illuminate\Container\Container;
-use Illuminate\Support\Facades\Facade;
-use Mockery;
+use CountlessIntegers\Tests\AppTestCase;
+use Illuminate\Support\Facades\DB;
 
-class DbCheckerTest extends Unit
+class DbCheckerTest extends AppTestCase
 {
-
-    /**
-     * @var Mockery\LegacyMockInterface|Mockery\MockInterface
-     */
-    private $db;
-
-    protected function _before()
-    {
-        $app = new Container();
-        $app->singleton('app', Container::class);
-        $this->db = Mockery::mock();
-        $app->singleton('db', function () {
-            return $this->db;
-        });
-        Facade::setFacadeApplication($app);
-    }
-
     /**
      * @test
      *
@@ -42,8 +24,7 @@ class DbCheckerTest extends Unit
             'query' => 'SHOW TABLES;'
         ]);
 
-        $this->db->expects()
-            ->select()
+        DB::shouldReceive('select')
             ->with('SHOW TABLES;')
             ->andReturn([
                 'table',

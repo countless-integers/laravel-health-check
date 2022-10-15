@@ -1,13 +1,14 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CountlessIntegers\UnitTests\Checkers;
 
-use Codeception\Test\Unit;
 use CountlessIntegers\LaravelHealthCheck\Checkers\PingChecker;
+use CountlessIntegers\Tests\AppTestCase;
 use InvalidArgumentException;
 
-class PingCheckerTest extends Unit
+class PingCheckerTest extends AppTestCase
 {
     /**
      * @test

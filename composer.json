@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "ext-json": "*",
         "illuminate/container": "^6|^7|^8",
         "illuminate/database": "^6|^7|^8",
@@ -23,11 +23,11 @@
         "aws/aws-sdk-php-laravel": "^3.5"
     },
     "require-dev": {
-        "codeception/codeception": "^4.1",
-        "codeception/mockery-module": "^0.4",
-        "codeception/module-asserts": "^1.1",
-        "vimeo/psalm": "^3.10 || ^4.0",
-        "illuminate/config": "^6|^7|^8"
+        "vimeo/psalm": "^4.28",
+        "illuminate/config": "^6|^7|^8",
+        "orchestra/testbench": "^6",
+        "phpunit/phpunit": "^9.5",
+        "mockery/mockery": "^1.5"
     },
     "autoload": {
         "psr-4": {
@@ -36,8 +36,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "CountlessIntegers\\UnitTests\\": "./tests/unit",
-            "CountlessIntegers\\FunctionalTests\\": "./tests/functional"
+            "CountlessIntegers\\Tests\\": "./tests"
         }
     },
     "extra": {
@@ -48,11 +47,10 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/codecept run",
-        "test-unit": "./vendor/bin/codecept run unit",
-        "test-unit-coverage": "./vendor/bin/codecept run unit --coverage-html",
-        "coverage-report": "open tests/_output/coverage/index.html",
+        "test": "./vendor/bin/phpunit",
+        "test-unit": "./vendor/bin/phpunit -- ./tests/Unit",
+        "test-coverage": "./vendor/bin/phpunit --coverage-html ./tests/coverage-report",
         "static-analysis": "./vendor/bin/psalm",
-        "qa": "./vendor/bin/psalm && ./vendor/bin/codecept run unit --coverage-html"
+        "qa": "./vendor/bin/psalm && ./vendor/bin/phpunit --coverage-html ./tests/coverage-report"
     }
 }

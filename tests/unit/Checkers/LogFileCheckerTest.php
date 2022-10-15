@@ -1,12 +1,13 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CountlessIntegers\UnitTests\Checkers;
 
-use Codeception\Test\Unit;
 use CountlessIntegers\LaravelHealthCheck\Checkers\LogFileChecker;
+use CountlessIntegers\Tests\AppTestCase;
 
-class LogFileCheckerTest extends Unit
+class LogFileCheckerTest extends AppTestCase
 {
     /**
      * @test
@@ -36,13 +37,11 @@ class LogFileCheckerTest extends Unit
         ];
     }
 
-    /**
-     * @test
-     */
+    /** @test */
     public function itWillReportHealthIfTheLogFilePathIsWritable(): void
     {
         $checker = new LogFileChecker([
-            'log_path' => codecept_data_dir('logs/dummy.log')
+            'log_path' => './tests/data/test.log',
         ]);
 
         $report = $checker->checkHealth();
