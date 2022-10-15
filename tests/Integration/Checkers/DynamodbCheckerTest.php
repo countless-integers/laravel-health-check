@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace CountlessIntegers\Integration\Checkers;
+namespace Tests\Integration\Checkers;
 
 use CountlessIntegers\LaravelHealthCheck\Checkers\DynamodbChecker;
 use CountlessIntegers\Tests\AppTestCase;
