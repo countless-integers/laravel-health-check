@@ -49,9 +49,9 @@
     "scripts": {
         "test": "./vendor/bin/phpunit",
         "test-unit": "./vendor/bin/phpunit tests/Unit",
-        "test-unit-coverage": "./vendor/bin/phpunit tests/Unit --coverage-html tests/coverage-report",
+        "test-unit-coverage": "./vendor/bin/phpunit --coverage-html tests/coverage-report tests/Unit",
         "coverage-report": "open tests/_output/coverage/index.html",
         "static-analysis": "./vendor/bin/psalm",
-        "qa": "./vendor/bin/psalm && ./vendor/bin/phpunit tests/Unit --coverage-html tests/coverage-report"
+        "qa": "./vendor/bin/psalm && ./vendor/bin/phpunit --coverage-html tests/coverage-report tests/Unit"
     }
 }
