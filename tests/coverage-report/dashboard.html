@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /mnt/c/Users/adi/Projects/laravel-health-check/src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/mnt/c/Users/adi/Projects/laravel-health-check/src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Checkers/DynamodbChecker.php.html#24">CountlessIntegers\LaravelHealthCheck\Checkers\DynamodbChecker</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/SQSChecker.php.html#20">CountlessIntegers\LaravelHealthCheck\Checkers\SQSChecker</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/StorageChecker.php.html#11">CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/DbChecker.php.html#12">CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker</a></td><td class="text-right">57%</td></tr>
+       <tr><td><a href="Reports/CheckerReport.php.html#8">CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport</a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Reports/AggregateReport.php.html#8">CountlessIntegers\LaravelHealthCheck\Reports\AggregateReport</a></td><td class="text-right">87%</td></tr>
+       <tr><td><a href="Checkers/DiskSpaceChecker.php.html#12">CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker</a></td><td class="text-right">89%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Checkers/StorageChecker.php.html#11">CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Checkers/SQSChecker.php.html#20">CountlessIntegers\LaravelHealthCheck\Checkers\SQSChecker</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Checkers/DiskSpaceChecker.php.html#12">CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker</a></td><td class="text-right">10</td></tr>
+       <tr><td><a href="Reports/AggregateReport.php.html#8">CountlessIntegers\LaravelHealthCheck\Reports\AggregateReport</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Checkers/DbChecker.php.html#12">CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker</a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Checkers/DynamodbChecker.php.html#26"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\DynamodbChecker::checkHealth">checkHealth</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/SQSChecker.php.html#27"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\SQSChecker::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/SQSChecker.php.html#37"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\SQSChecker::checkHealth">checkHealth</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/StorageChecker.php.html#23"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/StorageChecker.php.html#28"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker::checkHealth">checkHealth</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/StorageChecker.php.html#46"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker::__destruct">__destruct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/AggregateReport.php.html#40"><abbr title="CountlessIntegers\LaravelHealthCheck\Reports\AggregateReport::toJson">toJson</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Reports/CheckerReport.php.html#39"><abbr title="CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport::toJson">toJson</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Checkers/DbChecker.php.html#24"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker::checkHealth">checkHealth</abbr></a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Checkers/DiskSpaceChecker.php.html#26"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker::checkHealth">checkHealth</abbr></a></td><td class="text-right">72%</td></tr>
+       <tr><td><a href="Checkers/PingChecker.php.html#43"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\PingChecker::pingDomain">pingDomain</abbr></a></td><td class="text-right">85%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Checkers/StorageChecker.php.html#46"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker::__destruct">__destruct</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Checkers/SQSChecker.php.html#27"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\SQSChecker::__construct">__construct</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Checkers/StorageChecker.php.html#28"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\StorageChecker::checkHealth">checkHealth</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Checkers/DiskSpaceChecker.php.html#26"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker::checkHealth">checkHealth</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Checkers/PingChecker.php.html#43"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\PingChecker::pingDomain">pingDomain</abbr></a></td><td class="text-right">3</td></tr>
+       <tr><td><a href="Checkers/DbChecker.php.html#24"><abbr title="CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker::checkHealth">checkHealth</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.17</a> using <a href="https://secure.php.net/" target="_top">PHP 8.0.24</a> and <a href="https://phpunit.de/">PHPUnit 9.5.25</a> at Sat Oct 15 12:22:13 UTC 2022.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([3,0,0,0,0,0,1,0,0,3,1,5], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([8,0,0,0,0,0,1,0,1,1,0,23], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Checkers\/CacheChecker.php.html#12\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\CacheChecker<\/a>"],[57.14285714285714,3,"<a href=\"Checkers\/DbChecker.php.html#12\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DbChecker<\/a>"],[89.65517241379311,10,"<a href=\"Checkers\/DiskSpaceChecker.php.html#12\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DiskSpaceChecker<\/a>"],[0,1,"<a href=\"Checkers\/DynamodbChecker.php.html#24\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DynamodbChecker<\/a>"],[100,2,"<a href=\"Checkers\/LogFileChecker.php.html#15\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\LogFileChecker<\/a>"],[90.47619047619048,7,"<a href=\"Checkers\/PingChecker.php.html#15\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\PingChecker<\/a>"],[0,3,"<a href=\"Checkers\/SQSChecker.php.html#20\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\SQSChecker<\/a>"],[0,6,"<a href=\"Checkers\/StorageChecker.php.html#11\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\StorageChecker<\/a>"],[100,5,"<a href=\"Http\/Controllers\/HealthCheckController.php.html#12\">CountlessIntegers\\LaravelHealthCheck\\Http\\Controllers\\HealthCheckController<\/a>"],[100,2,"<a href=\"Providers\/ServiceProvider.php.html#10\">CountlessIntegers\\LaravelHealthCheck\\Providers\\ServiceProvider<\/a>"],[87.5,6,"<a href=\"Reports\/AggregateReport.php.html#8\">CountlessIntegers\\LaravelHealthCheck\\Reports\\AggregateReport<\/a>"],[85.71428571428571,5,"<a href=\"Reports\/CheckerReport.php.html#8\">CountlessIntegers\\LaravelHealthCheck\\Reports\\CheckerReport<\/a>"],[100,5,"<a href=\"Services\/HealthCheckService.php.html#12\">CountlessIntegers\\LaravelHealthCheck\\Services\\HealthCheckService<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Checkers\/CacheChecker.php.html#14\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\CacheChecker::checkHealth<\/a>"],[100,1,"<a href=\"Checkers\/DbChecker.php.html#19\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DbChecker::__construct<\/a>"],[50,2,"<a href=\"Checkers\/DbChecker.php.html#24\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DbChecker::checkHealth<\/a>"],[100,1,"<a href=\"Checkers\/DiskSpaceChecker.php.html#21\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DiskSpaceChecker::__construct<\/a>"],[72.72727272727273,3,"<a href=\"Checkers\/DiskSpaceChecker.php.html#26\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DiskSpaceChecker::checkHealth<\/a>"],[100,2,"<a href=\"Checkers\/DiskSpaceChecker.php.html#48\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DiskSpaceChecker::bytesToHuman<\/a>"],[100,4,"<a href=\"Checkers\/DiskSpaceChecker.php.html#57\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DiskSpaceChecker::humanToBytes<\/a>"],[0,1,"<a href=\"Checkers\/DynamodbChecker.php.html#26\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\DynamodbChecker::checkHealth<\/a>"],[100,1,"<a href=\"Checkers\/LogFileChecker.php.html#22\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\LogFileChecker::__construct<\/a>"],[100,1,"<a href=\"Checkers\/LogFileChecker.php.html#27\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\LogFileChecker::checkHealth<\/a>"],[100,2,"<a href=\"Checkers\/PingChecker.php.html#24\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\PingChecker::__construct<\/a>"],[100,2,"<a href=\"Checkers\/PingChecker.php.html#34\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\PingChecker::checkHealth<\/a>"],[85.71428571428571,3,"<a href=\"Checkers\/PingChecker.php.html#43\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\PingChecker::pingDomain<\/a>"],[0,2,"<a href=\"Checkers\/SQSChecker.php.html#27\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\SQSChecker::__construct<\/a>"],[0,1,"<a href=\"Checkers\/SQSChecker.php.html#37\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\SQSChecker::checkHealth<\/a>"],[0,1,"<a href=\"Checkers\/StorageChecker.php.html#23\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\StorageChecker::__construct<\/a>"],[0,2,"<a href=\"Checkers\/StorageChecker.php.html#28\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\StorageChecker::checkHealth<\/a>"],[0,3,"<a href=\"Checkers\/StorageChecker.php.html#46\">CountlessIntegers\\LaravelHealthCheck\\Checkers\\StorageChecker::__destruct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/HealthCheckController.php.html#28\">CountlessIntegers\\LaravelHealthCheck\\Http\\Controllers\\HealthCheckController::__construct<\/a>"],[100,4,"<a href=\"Http\/Controllers\/HealthCheckController.php.html#38\">CountlessIntegers\\LaravelHealthCheck\\Http\\Controllers\\HealthCheckController::checkHealth<\/a>"],[100,1,"<a href=\"Providers\/ServiceProvider.php.html#12\">CountlessIntegers\\LaravelHealthCheck\\Providers\\ServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/ServiceProvider.php.html#21\">CountlessIntegers\\LaravelHealthCheck\\Providers\\ServiceProvider::register<\/a>"],[100,1,"<a href=\"Reports\/AggregateReport.php.html#20\">CountlessIntegers\\LaravelHealthCheck\\Reports\\AggregateReport::isHealthy<\/a>"],[100,1,"<a href=\"Reports\/AggregateReport.php.html#25\">CountlessIntegers\\LaravelHealthCheck\\Reports\\AggregateReport::getDetails<\/a>"],[100,2,"<a href=\"Reports\/AggregateReport.php.html#30\">CountlessIntegers\\LaravelHealthCheck\\Reports\\AggregateReport::addCheckerReport<\/a>"],[0,1,"<a href=\"Reports\/AggregateReport.php.html#40\">CountlessIntegers\\LaravelHealthCheck\\Reports\\AggregateReport::toJson<\/a>"],[100,1,"<a href=\"Reports\/AggregateReport.php.html#48\">CountlessIntegers\\LaravelHealthCheck\\Reports\\AggregateReport::toArray<\/a>"],[100,1,"<a href=\"Reports\/CheckerReport.php.html#20\">CountlessIntegers\\LaravelHealthCheck\\Reports\\CheckerReport::__construct<\/a>"],[100,1,"<a href=\"Reports\/CheckerReport.php.html#26\">CountlessIntegers\\LaravelHealthCheck\\Reports\\CheckerReport::isHealthy<\/a>"],[100,1,"<a href=\"Reports\/CheckerReport.php.html#31\">CountlessIntegers\\LaravelHealthCheck\\Reports\\CheckerReport::getDetails<\/a>"],[0,1,"<a href=\"Reports\/CheckerReport.php.html#39\">CountlessIntegers\\LaravelHealthCheck\\Reports\\CheckerReport::toJson<\/a>"],[100,1,"<a href=\"Reports\/CheckerReport.php.html#47\">CountlessIntegers\\LaravelHealthCheck\\Reports\\CheckerReport::toArray<\/a>"],[100,1,"<a href=\"Services\/HealthCheckService.php.html#19\">CountlessIntegers\\LaravelHealthCheck\\Services\\HealthCheckService::__construct<\/a>"],[100,4,"<a href=\"Services\/HealthCheckService.php.html#24\">CountlessIntegers\\LaravelHealthCheck\\Services\\HealthCheckService::checkServices<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

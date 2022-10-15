@@ -1,7 +1,0 @@
-actor: UnitTester
-modules:
-    enabled:
-        - Asserts
-        - \Helper\Unit
-        - Mockery
-    step_decorators: ~
