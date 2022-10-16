@@ -5,13 +5,11 @@ declare(strict_types=1);
 namespace Tests\Integration\Checkers;
 
 use CountlessIntegers\LaravelHealthCheck\Checkers\DynamodbChecker;
-use CountlessIntegers\Tests\AppTestCase;
+use Tests\AppTestCase;
 use Illuminate\Support\Facades\Config;
 
 class DynamodbCheckerTest extends AppTestCase
 {
-    protected $loadEnvironmentVariables = true;
-
     protected function setUp(): void
     {
         parent::setUp();
@@ -42,7 +40,7 @@ class DynamodbCheckerTest extends AppTestCase
     public function itCanCheckTables(): void
     {
         $checker = new DynamodbChecker([
-            'tables' => ['healthy-table'],
+            'tables' => [env('AWS_DYNAMODB_TABLE_NAME')],
         ]);
 
         $report = $checker->checkHealth();
