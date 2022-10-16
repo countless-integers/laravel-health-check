@@ -27,17 +27,17 @@ class DynamodbCheckerTest extends AppTestCase
     }
 
     /** @test */
-    public function itCanCheckAllTables(): void
+    public function itCanPassUsingAllTables(): void
     {
         $checker = new DynamodbChecker();
 
         $report = $checker->checkHealth();
 
-        $this->assertFalse($report->isHealthy());
+        $this->assertTrue($report->isHealthy());
     }
 
     /** @test */
-    public function itCanCheckTables(): void
+    public function itCanPassUsingIndividualTables(): void
     {
         $checker = new DynamodbChecker([
             'tables' => [env('AWS_DYNAMODB_TABLE_NAME')],
@@ -45,6 +45,22 @@ class DynamodbCheckerTest extends AppTestCase
 
         $report = $checker->checkHealth();
 
+        $this->assertTrue($report->isHealthy());
+    }
+
+    /** @test */
+    public function itWillFailIfOneOfTheTablesIsNotHealthy(): void
+    {
+        $fake_table_name = 'fake-table';
+        $checker = new DynamodbChecker([
+            'tables' => [$fake_table_name, env('AWS_DYNAMODB_TABLE_NAME')],
+        ]);
+
+        $report = $checker->checkHealth();
+
         $this->assertFalse($report->isHealthy());
+        $details = $report->getDetails();
+        $this->assertFalse($details['tables'][$fake_table_name]['is_healthy']);
+        $this->assertTrue($details['tables'][env('AWS_DYNAMODB_TABLE_NAME')]['is_healthy']);
     }
 }

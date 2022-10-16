@@ -62,9 +62,13 @@ class DynamodbChecker implements HealthCheckerInterface
                 $result = $this->client->describeTable([
                     'TableName' => $table_name
                 ]);
+                $is_table_healthy = ($result['Table']['TableStatus'] ?? null) === 'ACTIVE';
                 $details['tables'][$table_name] = [
-                    'is_healthy' => ($result['Table']['TableStatus'] ?? null) === 'ACTIVE',
+                    'is_healthy' => $is_table_healthy,
                 ];
+                if ($is_table_healthy === false) {
+                    $is_healthy = false;
+                }
             } catch (DynamoDbException $e) {
                 $details['tables'][$table_name] = [
                     'is_healthy' => false,
