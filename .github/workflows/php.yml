@@ -16,20 +16,18 @@ jobs:
       matrix:
         php: 
           - 8.0
+          - 8.1
         laravel: 
-          - 6.*
-          - 7.*
           - 8.*
+          - 9.*
         stability: 
           # - prefer-lowest
           - prefer-stable
         include:
-          - laravel: 6.*
-            testbench: 4.*
-          - laravel: 7.*
-            testbench: 5.*
           - laravel: 8.*
             testbench: 6.*
+          - laravel: 9.*
+            testbench: 7.*
 
     name: PHP${{ matrix.php }} - Laravel${{ matrix.laravel }} - ${{ matrix.stability }}
 
