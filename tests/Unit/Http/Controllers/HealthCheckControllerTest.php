@@ -4,16 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Http\Controllers;
 
-use CountlessIntegers\LaravelHealthCheck\Http\Controllers\HealthCheckController;
 use CountlessIntegers\LaravelHealthCheck\Reports\AggregateReport;
 use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
 use Tests\AppTestCase;
-use Illuminate\Config\Repository;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
-use Mockery;
 use Mockery\MockInterface;
 
 class HealthCheckControllerTest extends AppTestCase
@@ -21,11 +17,20 @@ class HealthCheckControllerTest extends AppTestCase
     /** @test */
     public function itWillReturnOkIfHealthCheckPasses(): void
     {
-        $report = new AggregateReport();
-        $report->addCheckerReport('hello-world', new CheckerReport(true));
+        $checks = [
+            'healthy-check',
+        ];
+        Config::set('checkers', $checks);
+        $report = (new AggregateReport)->addCheckerReport(
+            'healthy-check',
+            new CheckerReport(true)
+        );
         $this->mock(
             HealthCheckService::class,
-            fn (MockInterface $mock) => $mock->shouldReceive('checkServices')->andReturns($report),
+            fn (MockInterface $mock) => $mock
+                ->expects('runChecks')
+                ->with($checks)
+                ->andReturns($report),
         );
 
         $response = $this->get(route('health-check'));
@@ -34,7 +39,7 @@ class HealthCheckControllerTest extends AppTestCase
             ->assertJson([
                 'is_healthy' => true,
                 'report' => [
-                    'hello-world' => [
+                    'healthy-check' => [
                         'is_healthy' => true,
                         'report' => [],
                     ],
@@ -45,12 +50,19 @@ class HealthCheckControllerTest extends AppTestCase
     /** @test */
     public function itWillReturnServerErrorResponseIfHealthCheckFails(): void
     {
-        $report = new AggregateReport();
-        $report->addCheckerReport('hello-world', new CheckerReport(false));
-        $report->addCheckerReport('bye-world', new CheckerReport(true));
+        $checks = [
+            'healthy-check',
+            'unhealthy-check',
+        ];
+        Config::set('checkers', $checks);
+        $report = (new AggregateReport())
+            ->addCheckerReport('healthy-check', new CheckerReport(true))
+            ->addCheckerReport('unhealthy-check', new CheckerReport(false));
         $this->mock(
             HealthCheckService::class,
-            fn (MockInterface $mock) => $mock->shouldReceive('checkServices')->andReturns($report),
+            fn (MockInterface $mock) => $mock->expects('runChecks')
+                ->with($checks)
+                ->andReturns($report),
         );
 
         $response = $this->get(route('health-check'));
@@ -60,12 +72,12 @@ class HealthCheckControllerTest extends AppTestCase
                 [
                     'is_healthy' => false,
                     'report' => [
-                        'hello-world' => [
-                            'is_healthy' => false,
+                        'healthy-check' => [
+                            'is_healthy' => true,
                             'report' => [],
                         ],
-                        'bye-world' => [
-                            'is_healthy' => true,
+                        'unhealthy-check' => [
+                            'is_healthy' => false,
                             'report' => [],
                         ],
                     ],
@@ -81,24 +93,109 @@ class HealthCheckControllerTest extends AppTestCase
         $response = $this->get(route('health-check'));
 
         $response->assertStatus(Response::HTTP_FORBIDDEN);
+        $response->assertJson([]);
     }
 
     /** @test */
     public function itWillReturnResponseIfAccessTokenSpecifiedAndPresent(): void
     {
-        $token = 'whatever-other-value';
+        $checks = [
+            'healthy-check',
+        ];
+        Config::set('checkers', $checks);
+        $token = 'valid-token';
         Config::set('health-check.access_token', $token);
         $report = (new AggregateReport)->addCheckerReport(
-            'bye-world',
+            'healthy-check',
             new CheckerReport(true)
         );
         $this->mock(
             HealthCheckService::class,
-            fn (MockInterface $mock) => $mock->shouldReceive('checkServices')->andReturns($report),
+            fn (MockInterface $mock) => $mock->shouldReceive('runChecks')->andReturns($report),
         );
 
         $response = $this->get(route('health-check') . '?' . http_build_query(['token' => $token]));
 
         $response->assertStatus(Response::HTTP_OK);
+    }
+
+    /** @test */
+    public function itWillPassIfExtendedChecksPass(): void
+    {
+        $checks = [
+            'healthy-check',
+        ];
+        Config::set('checkers', $checks);
+        $extended_checks = [
+            'extended-check',
+        ];
+        Config::set('extended_checks', $extended_checks);
+        $report = (new AggregateReport)
+            ->addCheckerReport('healthy-check', new CheckerReport(true))
+            ->addCheckerReport('extended-check', new CheckerReport(true));
+        $this->mock(
+            HealthCheckService::class,
+            fn (MockInterface $mock) => $mock
+                ->expects('runChecks')
+                ->with([...$checks, ...$extended_checks])
+                ->andReturns($report),
+        );
+
+        $response = $this->get(route('health-check') . '?extended=true');
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertJson([
+                'is_healthy' => true,
+                'report' => [
+                    'healthy-check' => [
+                        'is_healthy' => true,
+                        'report' => [],
+                    ],
+                    'extended-check' => [
+                        'is_healthy' => true,
+                        'report' => [],
+                    ],
+                ],
+            ]);
+    }
+
+    /** @test */
+    public function itWillFailIfExtendedChecksFail(): void
+    {
+        $checks = [
+            'healthy-check',
+        ];
+        Config::set('checkers', $checks);
+        $extended_checks = [
+            'extended-check',
+        ];
+        Config::set('extended_checks', $extended_checks);
+        $report = (new AggregateReport)
+            ->addCheckerReport('healthy-check', new CheckerReport(true))
+            ->addCheckerReport('extended-check', new CheckerReport(false));
+        $this->mock(
+            HealthCheckService::class,
+            fn (MockInterface $mock) => $mock
+                ->expects('runChecks')
+                ->with([...$checks, ...$extended_checks])
+                ->andReturns($report),
+        );
+
+        $response = $this->get(route('health-check') . '?extended=true');
+
+        $response->assertStatus(Response::HTTP_INTERNAL_SERVER_ERROR)
+            ->assertJson([
+                'is_healthy' => false,
+                'report' => [
+                    'healthy-check' => [
+                        'is_healthy' => true,
+                        'report' => [],
+                    ],
+                    'extended-check' => [
+                        'is_healthy' => false,
+                        'report' => [],
+                    ],
+                ],
+            ]);
     }
 }

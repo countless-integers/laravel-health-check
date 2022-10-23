@@ -6,79 +6,130 @@ namespace Tests\Unit\Services;
 
 use CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker;
 use CountlessIntegers\LaravelHealthCheck\Checkers\LogFileChecker;
+use CountlessIntegers\LaravelHealthCheck\Reports\CheckerReport;
 use CountlessIntegers\LaravelHealthCheck\Services\HealthCheckService;
 use Tests\AppTestCase;
 use Illuminate\Support\Facades\Config;
+use InvalidArgumentException;
+use Mockery\MockInterface;
 
 class HealthCheckServiceTest extends AppTestCase
 {
     /** @test */
-    public function itCanReportHealth(): void
+    public function itCanRunChecks(): void
     {
-        Config::set(
-            'health-check.checkers',
-            [
-                DiskSpaceChecker::class => [
-                    'min_free_space' => '1 MB',
-                ],
+        $checks = [
+            DiskSpaceChecker::class => [
+                'min_free_space' => '1 MB',
             ],
+        ];
+        Config::set('health-check.checkers', $checks);
+        // @see: https://github.com/laravel/framework/issues/25401
+        // @see: https://github.com/laravel/framework/issues/25041#issuecomment-445479867
+        $this->app->offsetSet(
+            DiskSpaceChecker::class,
+            $this->mock(
+                DiskSpaceChecker::class,
+                fn (MockInterface $mock) => $mock
+                    ->expects('checkHealth')
+                    ->andReturns(
+                        (new CheckerReport(true, ['free_disk_space' => '70.77 GB'])),
+                    ),
+            )
         );
         $service = $this->app->make(HealthCheckService::class);
 
-        $report = $service->checkServices();
+        $report = $service->runChecks($checks);
 
-        $this->assertTrue($report->isHealthy(), 'It should be healthy, but got ' . json_encode($report));
-        $details = $report->getDetails();
-        // JsonType check would be nicer for this, but for now it's broken in codeception, so:
-        $this->assertArrayHasKey(DiskSpaceChecker::class, $details);
-        $this->assertArrayHasKey('is_healthy', $details[DiskSpaceChecker::class]);
-        $this->assertArrayHasKey('report', $details[DiskSpaceChecker::class]);
-        $this->assertEquals(true, $details[DiskSpaceChecker::class]['is_healthy']);
+        $this->assertTrue(
+            $report->isHealthy(),
+            'It should be healthy, but got ' . json_encode($report),
+        );
+        $this->assertEquals(
+            [
+                DiskSpaceChecker::class => [
+                    'is_healthy' => true,
+                    'report' => [
+                        'free_disk_space' => '70.77 GB',
+                    ],
+                ]
+            ],
+            $report->getDetails(),
+        );
     }
 
     /** @test */
     public function itCanReportLackOfHealth(): void
     {
-        Config::set(
-            'health-check.checkers',
-            [
-                LogFileChecker::class => [
-                    'log_path' => '/not-accessible',
-                ],
+        $checks = [
+            LogFileChecker::class => [
+                'log_path' => '/not-accessible',
             ],
+        ];
+        Config::set('health-check.checkers', $checks);
+        $this->app->offsetSet(
+            LogFileChecker::class,
+            $this->mock(
+                LogFileChecker::class,
+                fn (MockInterface $mock) => $mock
+                    ->expects('checkHealth')
+                    ->andReturns(
+                        (new CheckerReport(false, [])),
+                    ),
+            )
         );
         $service = $this->app->make(HealthCheckService::class);
 
-        $report = $service->checkServices();
+        $report = $service->runChecks($checks);
 
         $this->assertFalse($report->isHealthy());
-        $details = $report->getDetails();
-        // JsonType check would be nicer for this, but for now it's broken in codeception, so:
-        $this->assertArrayHasKey(LogFileChecker::class, $details);
-        $this->assertArrayHasKey('is_healthy', $details[LogFileChecker::class]);
-        $this->assertArrayHasKey('report', $details[LogFileChecker::class]);
-        $this->assertEquals(false, $details[LogFileChecker::class]['is_healthy']);
+        $this->assertEquals(
+            [
+                LogFileChecker::class => [
+                    'is_healthy' => false,
+                    'report' => [],
+                ]
+            ],
+            $report->getDetails(),
+        );
     }
 
     /** @test */
     public function itWillNotCrashBecauseOfAChecker(): void
     {
-        Config::set(
-            'health-check.checkers',
-            [
-                DiskSpaceChecker::class => [
-                    'min_free_space' => '1 UnsupportedUnit',
-                ],
+        $checks = [
+            DiskSpaceChecker::class => [
+                'min_free_space' => '1 UnsupportedUnit',
             ],
+        ];
+        $exception_message = 'unsupported unit';
+        Config::set('health-check.checkers', $checks);
+        $this->app->offsetSet(
+            DiskSpaceChecker::class,
+            $this->mock(
+                DiskSpaceChecker::class,
+                fn (MockInterface $mock) => $mock
+                    ->expects('checkHealth')
+                    ->andThrows(new InvalidArgumentException($exception_message)),
+            ),
         );
         $service = $this->app->make(HealthCheckService::class);
 
-        $report = $service->checkServices();
+
+        $report = $service->runChecks($checks);
 
         $this->assertFalse($report->isHealthy());
-        $details = $report->getDetails();
-        $this->assertArrayHasKey(DiskSpaceChecker::class, $details);
-        $this->assertArrayHasKey('exception', $details[DiskSpaceChecker::class]['report']);
-        $this->assertArrayHasKey('exception_message', $details[DiskSpaceChecker::class]['report']);
+        $this->assertEquals(
+            [
+                DiskSpaceChecker::class => [
+                    'is_healthy' => false,
+                    'report' => [
+                        'exception' => 'InvalidArgumentException',
+                        'exception_message' => $exception_message,
+                    ],
+                ]
+            ],
+            $report->getDetails(),
+        );
     }
 }

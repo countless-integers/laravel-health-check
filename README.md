@@ -9,18 +9,18 @@ PHP 8.0+ is required.
     $ composer require countless-integers/laravel-health-check
     $ php artisan vendor:publish
     
-## Known issues
-
-* even though all checker classes are optional, all the libraries that they depend on are not
-* no aliases for check, instead check class names are used
-    
 ## Configuration 
 
 Package publishes its config to your project's and it can be found at `config/health-check.php`.
+    
+## Gotchas
+
+* even though all checker classes are optional, all the libraries that they depend on are not
+* no aliases for check, instead check class names are used
 
 ### Configuration keys
 
-#### Checkers
+#### `checkers`
 
 List of checker classes that should run on service check. By default, all available checkers are included in the exported configuration. You can disable the ones you don`t want by removing their key from this array.
 
@@ -40,11 +40,16 @@ Checker class       | Configuration key           | Supported Values | Default v
 `PingChecker`       | `domains` (required, []string) | list of urls to ping | -
 `PingChecker`       | `timeout` (int)             | timeout value for each check | `5` (sec)
 
+#### `extended_checks`
+
+Same format as `checkers`, but these checks are only run if the endpoint was called with `extended` option (see below).
+
 #### Other options
 
 Configuration key | Supported Values | Default value
 ------------------| ---------------- | -------------
 `access_token`    | `null`|(string)  | null 
+`extended`        | `null`|(bool)    | null 
 
 ## Contribution guidelines
 
