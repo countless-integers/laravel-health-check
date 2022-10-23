@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CountlessIntegers\LaravelHealthCheck\Http\Controllers;
@@ -11,37 +12,27 @@ use Illuminate\Http\Response;
 
 class HealthCheckController
 {
-    /**
-     * @var HealthCheckService
-     */
-    private $health_check_service;
-
-    /**
-     * @var Repository
-     */
-    private $config;
-
-    /**
-     * @param HealthCheckService $health_check_service
-     * @param Repository $config
-     */
-    public function __construct(HealthCheckService $health_check_service, Repository $config)
-    {
-        $this->health_check_service = $health_check_service;
-        $this->config = $config;
+    public function __construct(
+        private HealthCheckService $health_check_service,
+        private Repository $config,
+    ) {
     }
 
-    /**
-     * @param Request $request
-     * @return JsonResponse
-     */
     public function checkHealth(Request $request): JsonResponse
     {
         $access_token = $this->config->get('health-check.access_token');
         if ($access_token !== null && $access_token !== $request->query('token')) {
             return new JsonResponse(null, Response::HTTP_FORBIDDEN);
         }
-        $report = $this->health_check_service->checkServices();
+
+        $checks = $this->config['checkers'];
+        $extended_checks = $this->config['extended_checks'];
+        if ($request->query('extended') && $extended_checks) {
+            $checks = [...$checks, ...$extended_checks];
+        }
+
+        $report = $this->health_check_service->runChecks($checks);
+
         if ($report->isHealthy()) {
             return new JsonResponse($report->toArray());
         }

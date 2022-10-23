@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 return [
@@ -14,16 +15,18 @@ return [
         \CountlessIntegers\LaravelHealthCheck\Checkers\DiskSpaceChecker::class => [
             'min_free_space' => '2GB',
         ],
-        \CountlessIntegers\LaravelHealthCheck\Checkers\DynamodbChecker::class,
-        \CountlessIntegers\LaravelHealthCheck\Checkers\SQSChecker::class => [
-            'queue_url' => '',
-        ],
         \CountlessIntegers\LaravelHealthCheck\Checkers\PingChecker::class => [
             'domains' => [
                 '1.1.1.1',
                 'https://google.com',
             ],
             'timeout' => 5,
+        ],
+    ],
+    'extended' => [
+        \CountlessIntegers\LaravelHealthCheck\Checkers\DynamodbChecker::class,
+        \CountlessIntegers\LaravelHealthCheck\Checkers\SQSChecker::class => [
+            'queue_url' => '',
         ],
     ],
     'access_token' => null,

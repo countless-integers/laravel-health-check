@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace CountlessIntegers\LaravelHealthCheck\Services;
@@ -11,20 +12,14 @@ use Throwable;
 
 class HealthCheckService
 {
-    /**
-     * @var array
-     */
-    private $config = [];
-
-    public function __construct(array $config)
+    public function __construct(private array $config)
     {
-        $this->config = $config;
     }
 
-    public function checkServices(): HealthCheckReportInterface
+    public function runChecks(array $checks): HealthCheckReportInterface
     {
         $report = new AggregateReport();
-        foreach ($this->config['checkers'] as $key => $value) {
+        foreach ($checks as $key => $value) {
             $checker_class = $value;
             $checker_config = [];
             if (is_array($value)) {
