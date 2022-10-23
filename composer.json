@@ -1,6 +1,6 @@
 {
     "name": "countless-integers/laravel-health-check",
-    "description": "Customizable health-checks integrated with the Laravel framework",
+    "description": "Customizable health-checks Laravel applications",
     "type": "library",
     "keywords": [
         "laravel",
@@ -10,7 +10,7 @@
     "authors": [
         {
             "name": "Adrian",
-            "email": "totcha@gazeta.pl"
+            "email": "oxygen-nitrogen@github.com"
         }
     ],
     "require": {
@@ -20,14 +20,17 @@
         "illuminate/database": "^6|^7|^8",
         "illuminate/support": "^6|^7|^8",
         "illuminate/http": "^6|^7|^8",
-        "aws/aws-sdk-php-laravel": "^3.5"
+        "illuminate/config": "^6|^7|^8"
     },
     "require-dev": {
         "vimeo/psalm": "^4.28",
-        "illuminate/config": "^6|^7|^8",
         "orchestra/testbench": "^6",
         "phpunit/phpunit": "^9.5",
-        "mockery/mockery": "^1.5"
+        "mockery/mockery": "^1.5",
+        "aws/aws-sdk-php-laravel": "^3.5"
+    },
+    "suggest": {
+        "aws/aws-sdk-php-laravel": "Needed for AWS service setup checks"
     },
     "autoload": {
         "psr-4": {
