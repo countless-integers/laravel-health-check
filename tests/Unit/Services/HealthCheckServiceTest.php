@@ -132,4 +132,15 @@ class HealthCheckServiceTest extends AppTestCase
             $report->getDetails(),
         );
     }
+
+    /** @test */
+    public function itWillReportHealthIfEmptyChecksArrayPassed(): void
+    {
+        $service = $this->app->make(HealthCheckService::class);
+
+        $report = $service->runChecks([]);
+
+        $this->assertTrue($report->isHealthy());
+        $this->assertEquals([], $report->getDetails());
+    }
 }
