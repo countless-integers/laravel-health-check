@@ -198,4 +198,26 @@ class HealthCheckControllerTest extends AppTestCase
                 ],
             ]);
     }
+
+    /** @test */
+    public function itWillReturnOkIfNoChecksConfigured(): void
+    {
+        Config::set('checkers', []);
+        $report = (new AggregateReport);
+        $this->mock(
+            HealthCheckService::class,
+            fn (MockInterface $mock) => $mock
+                ->expects('runChecks')
+                ->with([])
+                ->andReturns($report),
+        );
+
+        $response = $this->get(route('health-check'));
+
+        $response->assertStatus(Response::HTTP_OK)
+            ->assertJson([
+                'is_healthy' => true,
+                'report' => [],
+            ]);
+    }
 }
