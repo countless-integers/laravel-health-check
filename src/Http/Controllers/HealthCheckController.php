@@ -25,8 +25,8 @@ class HealthCheckController
             return new JsonResponse(null, Response::HTTP_FORBIDDEN);
         }
 
-        $checks = $this->config['checkers'] ?? [];
-        $extended_checks = $this->config['extended_checks'] ?? [];
+        $checks = $this->config['health-check.checkers'] ?? [];
+        $extended_checks = $this->config['health-check.extended_checks'] ?? [];
         if ($request->query('extended') && $extended_checks) {
             $checks = [...$checks, ...$extended_checks];
         }
