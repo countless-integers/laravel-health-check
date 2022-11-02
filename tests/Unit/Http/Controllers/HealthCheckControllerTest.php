@@ -20,7 +20,7 @@ class HealthCheckControllerTest extends AppTestCase
         $checks = [
             'healthy-check',
         ];
-        Config::set('checkers', $checks);
+        Config::set('health-check.checkers', $checks);
         $report = (new AggregateReport)->addCheckerReport(
             'healthy-check',
             new CheckerReport(true)
@@ -54,7 +54,7 @@ class HealthCheckControllerTest extends AppTestCase
             'healthy-check',
             'unhealthy-check',
         ];
-        Config::set('checkers', $checks);
+        Config::set('health-check.checkers', $checks);
         $report = (new AggregateReport())
             ->addCheckerReport('healthy-check', new CheckerReport(true))
             ->addCheckerReport('unhealthy-check', new CheckerReport(false));
@@ -102,7 +102,7 @@ class HealthCheckControllerTest extends AppTestCase
         $checks = [
             'healthy-check',
         ];
-        Config::set('checkers', $checks);
+        Config::set('health-check.checkers', $checks);
         $token = 'valid-token';
         Config::set('health-check.access_token', $token);
         $report = (new AggregateReport)->addCheckerReport(
@@ -125,11 +125,11 @@ class HealthCheckControllerTest extends AppTestCase
         $checks = [
             'healthy-check',
         ];
-        Config::set('checkers', $checks);
+        Config::set('health-check.checkers', $checks);
         $extended_checks = [
             'extended-check',
         ];
-        Config::set('extended_checks', $extended_checks);
+        Config::set('health-check.extended_checks', $extended_checks);
         $report = (new AggregateReport)
             ->addCheckerReport('healthy-check', new CheckerReport(true))
             ->addCheckerReport('extended-check', new CheckerReport(true));
@@ -165,11 +165,11 @@ class HealthCheckControllerTest extends AppTestCase
         $checks = [
             'healthy-check',
         ];
-        Config::set('checkers', $checks);
+        Config::set('health-check.checkers', $checks);
         $extended_checks = [
             'extended-check',
         ];
-        Config::set('extended_checks', $extended_checks);
+        Config::set('health-check.extended_checks', $extended_checks);
         $report = (new AggregateReport)
             ->addCheckerReport('healthy-check', new CheckerReport(true))
             ->addCheckerReport('extended-check', new CheckerReport(false));
@@ -202,7 +202,7 @@ class HealthCheckControllerTest extends AppTestCase
     /** @test */
     public function itWillReturnOkIfNoChecksConfigured(): void
     {
-        Config::set('checkers', []);
+        Config::set('health-check.checkers', []);
         $report = (new AggregateReport);
         $this->mock(
             HealthCheckService::class,
