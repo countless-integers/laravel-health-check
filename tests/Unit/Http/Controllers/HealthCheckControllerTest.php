@@ -19,12 +19,14 @@ class HealthCheckControllerTest extends AppTestCase
     {
         $checks = [
             'healthy-check',
+            'healthy-with-config' => [
+                'something' => 'in the way',
+            ],
         ];
         Config::set('health-check.checkers', $checks);
-        $report = (new AggregateReport)->addCheckerReport(
-            'healthy-check',
-            new CheckerReport(true)
-        );
+        $report = (new AggregateReport)
+            ->addCheckerReport('healthy-check', new CheckerReport(true))
+            ->addCheckerReport('healthy-with-config', new CheckerReport(true, ['uuum' => 'humm']));
         $this->mock(
             HealthCheckService::class,
             fn (MockInterface $mock) => $mock
@@ -42,6 +44,12 @@ class HealthCheckControllerTest extends AppTestCase
                     'healthy-check' => [
                         'is_healthy' => true,
                         'report' => [],
+                    ],
+                    'healthy-with-config' => [
+                        'is_healthy' => true,
+                        'report' => [
+                            'uuum' => 'humm',
+                        ],
                     ],
                 ],
             ]);
@@ -128,16 +136,20 @@ class HealthCheckControllerTest extends AppTestCase
         Config::set('health-check.checkers', $checks);
         $extended_checks = [
             'extended-check',
+            'extended-with-config' => [
+                'something' => 'something',
+            ],
         ];
         Config::set('health-check.extended_checks', $extended_checks);
         $report = (new AggregateReport)
             ->addCheckerReport('healthy-check', new CheckerReport(true))
-            ->addCheckerReport('extended-check', new CheckerReport(true));
+            ->addCheckerReport('extended-check', new CheckerReport(true))
+            ->addCheckerReport('extended-with-config', new CheckerReport(true));
         $this->mock(
             HealthCheckService::class,
             fn (MockInterface $mock) => $mock
                 ->expects('runChecks')
-                ->with([...$checks, ...$extended_checks])
+                ->with(array_merge($checks, $extended_checks))
                 ->andReturns($report),
         );
 
@@ -152,6 +164,10 @@ class HealthCheckControllerTest extends AppTestCase
                         'report' => [],
                     ],
                     'extended-check' => [
+                        'is_healthy' => true,
+                        'report' => [],
+                    ],
+                    'extended-with-config' => [
                         'is_healthy' => true,
                         'report' => [],
                     ],

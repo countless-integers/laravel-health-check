@@ -28,7 +28,7 @@ class HealthCheckController
         $checks = $this->config['health-check.checkers'] ?? [];
         $extended_checks = $this->config['health-check.extended_checks'] ?? [];
         if ($request->query('extended') && $extended_checks) {
-            $checks = [...$checks, ...$extended_checks];
+            $checks = array_merge($checks, $extended_checks);
         }
 
         $report = $this->health_check_service->runChecks($checks);
