@@ -20,7 +20,7 @@ class ServiceProvider extends AggregateServiceProvider
 
     public function register()
     {
-        $this->app->singleton(HealthCheckService::class, static function ($app) {
+        $this->app->singleton(HealthCheckService::class, static function () {
             return new HealthCheckService(Config::get('health-check'));
         });
     }

@@ -1,8 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.10.1@eeed5ecccc10131397f0eb7ee6da810c0be3a7fc">
+<files psalm-version="5.23.1@8471a896ccea3526b26d082f4461eeea467f10a4">
+  <file src="src/Checkers/CacheChecker.php">
+    <UnusedClass>
+      <code><![CDATA[CacheChecker]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Checkers/DbChecker.php">
+    <UnusedClass>
+      <code><![CDATA[DbChecker]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Checkers/DiskSpaceChecker.php">
+    <UnusedClass>
+      <code><![CDATA[DiskSpaceChecker]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Checkers/DynamodbChecker.php">
+    <UnusedClass>
+      <code><![CDATA[DynamodbChecker]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Checkers/LogFileChecker.php">
+    <UnusedClass>
+      <code><![CDATA[LogFileChecker]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Checkers/PingChecker.php">
+    <UnusedClass>
+      <code><![CDATA[PingChecker]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Checkers/SQSChecker.php">
+    <UnusedClass>
+      <code><![CDATA[SQSChecker]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Checkers/StorageChecker.php">
+    <UnusedClass>
+      <code><![CDATA[StorageChecker]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Contracts/HealthCheckReportInterface.php">
+    <MissingTemplateParam>
+      <code><![CDATA[Arrayable]]></code>
+    </MissingTemplateParam>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getDetails]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Contracts/HealthCheckerInterface.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[checkHealth]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Http/Controllers/HealthCheckController.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+      <code><![CDATA[checkHealth]]></code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Providers/ServiceProvider.php">
-    <UndefinedFunction occurrences="1">
-      <code>config_path('health-check.php')</code>
-    </UndefinedFunction>
+    <UnusedClass>
+      <code><![CDATA[ServiceProvider]]></code>
+    </UnusedClass>
+  </file>
+  <file src="src/Services/HealthCheckService.php">
+    <UnusedProperty>
+      <code><![CDATA[$config]]></code>
+    </UnusedProperty>
   </file>
 </files>
