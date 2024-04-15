@@ -16,11 +16,11 @@
     "require": {
         "php": "^8",
         "ext-json": "*",
-        "illuminate/container": "^8|^9|^10",
-        "illuminate/database": "^8|^9|^10",
-        "illuminate/support": "^8|^9|^10",
-        "illuminate/http": "^8|^9|^10",
-        "illuminate/config": "^8|^9|^10"
+        "illuminate/container": "^8|^9|^10|^11",
+        "illuminate/database": "^8|^9|^10|^11",
+        "illuminate/support": "^8|^9|^10|^11",
+        "illuminate/http": "^8|^9|^10|^11",
+        "illuminate/config": "^8|^9|^10|^11"
     },
     "require-dev": {
         "vimeo/psalm": "^4.28",
