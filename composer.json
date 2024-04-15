@@ -23,7 +23,7 @@
         "illuminate/config": "^10|^11"
     },
     "require-dev": {
-        "vimeo/psalm": "^4.30.0",
+        "vimeo/psalm": "^5.23.1",
         "orchestra/testbench": "^8|^9",
         "phpunit/phpunit": "^9.6|^10.5|^11.1",
         "mockery/mockery": "^1.6",
@@ -54,6 +54,9 @@
         "test-unit": "./vendor/bin/phpunit --testsuite unit",
         "test-coverage": "./vendor/bin/phpunit --testsuite unit --coverage-html ./tests/coverage-report",
         "static-analysis": "./vendor/bin/psalm",
-        "qa": "./vendor/bin/psalm && ./vendor/bin/phpunit --testsuite unit --coverage-html ./tests/coverage-report"
+        "qa": "./vendor/bin/psalm && ./vendor/bin/phpunit --testsuite unit --coverage-html ./tests/coverage-report",
+        "set-baseline": [
+            "./vendor/bin/psalm --output-format=console --config=psalm.xml --show-info=false --set-baseline=psalm-baseline.xml --no-cache"
+        ]
     }
 }
