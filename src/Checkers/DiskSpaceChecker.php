@@ -23,6 +23,7 @@ class DiskSpaceChecker implements HealthCheckerInterface
         $this->config = $config;
     }
 
+    #[\Override]
     public function checkHealth(): HealthCheckReportInterface
     {
         $min_required_disk_space = $this->config['min_free_space'];

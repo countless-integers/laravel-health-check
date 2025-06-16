@@ -2,32 +2,35 @@
 <phpunit
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   bootstrap="vendor/autoload.php"
-  backupGlobals="false"
-  backupStaticAttributes="false"
   colors="true"
-  verbose="true"
-  convertErrorsToExceptions="true"
-  convertNoticesToExceptions="true"
-  convertWarningsToExceptions="true"
+  executionOrder="depends,defects"
   processIsolation="false"
   stopOnFailure="false"
-  xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+  requireCoverageMetadata="false"
+  beStrictAboutCoverageMetadata="true"
+  beStrictAboutOutputDuringTests="true"
+  displayDetailsOnPhpunitDeprecations="true"
 >
-  <coverage>
-    <include>
-      <directory suffix=".php">src/</directory>
-    </include>
-  </coverage>
-  <testsuites>
-    <testsuite name="unit">
-      <directory suffix="Test.php">tests/Unit/</directory>
-    </testsuite>
-    <testsuite name="integration">
-      <directory suffix="Test.php">tests/Integration/</directory>
-    </testsuite>
-  </testsuites>
   <php>
     <env name="DB_CONNECTION" value="testing"/>
     <env name="APP_KEY" value="base64:2fl+Ktvkfl+Fuz4Qp/A75G2RTiWVA/ZoKZvp6fiiM10="/>
   </php>
+  <source>
+    <include>
+      <directory>src</directory>
+    </include>
+  </source>
+  <testsuites>
+    <testsuite name="unit">
+      <directory suffix="Test.php">tests/Unit</directory>
+    </testsuite>
+    <testsuite name="integration">
+      <directory suffix="Test.php">tests/Integration</directory>
+    </testsuite>
+  </testsuites>
+  <coverage includeUncoveredFiles="true"
+    pathCoverage="false"
+    ignoreDeprecatedCodeUnits="true"
+    disableCodeCoverageIgnore="true">
+  </coverage>
 </phpunit>

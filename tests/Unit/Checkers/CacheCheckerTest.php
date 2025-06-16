@@ -9,6 +9,7 @@ use CountlessIntegers\LaravelHealthCheck\Checkers\CacheChecker;
 use Tests\AppTestCase;
 use Illuminate\Support\Facades\Cache;
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 
 class CacheCheckerTest extends AppTestCase
 {
@@ -27,6 +28,7 @@ class CacheCheckerTest extends AppTestCase
      * synchronous here, so we need to call the `checkHealth` method
      * before actually checking argument values.
      */
+    #[Test]
     public function itWillSucceedIfAKeyCanBeSetAndRetrieved(): void
     {
         Cache::shouldReceive('put')
@@ -52,6 +54,7 @@ class CacheCheckerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillFailIfTheSetKeyDoesNotMatchTheRetrievedOne(): void
     {
         Cache::shouldReceive('put')

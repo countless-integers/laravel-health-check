@@ -7,6 +7,8 @@ namespace Tests\Unit\Checkers;
 use CountlessIntegers\LaravelHealthCheck\Checkers\PingChecker;
 use Tests\AppTestCase;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class PingCheckerTest extends AppTestCase
 {
@@ -14,6 +16,7 @@ class PingCheckerTest extends AppTestCase
      * @test
      * @fixme: this is actually opening a connection to a real server
      */
+    #[Test]
     public function itWillSucceedIfAKeyCanBeSetAndRetrieved(): void
     {
         $checker = new PingChecker([
@@ -34,13 +37,15 @@ class PingCheckerTest extends AppTestCase
      *
      * @param array $invalid_config
      */
+    #[Test]
+    #[DataProvider('provideInvalidConfig')]
     public function itCrashIfNoDomainsProvided(array $invalid_config): void
     {
         $this->expectException(InvalidArgumentException::class);
         new PingChecker($invalid_config);
     }
 
-    public function provideInvalidConfig(): array
+    public static function provideInvalidConfig(): array
     {
         return [
             'empty_domains' => [[

@@ -11,10 +11,12 @@ use Tests\AppTestCase;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Config;
 use Mockery\MockInterface;
+use PHPUnit\Framework\Attributes\Test;
 
 class HealthCheckControllerTest extends AppTestCase
 {
     /** @test */
+    #[Test]
     public function itWillReturnOkIfHealthCheckPasses(): void
     {
         $checks = [
@@ -56,6 +58,7 @@ class HealthCheckControllerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillReturnServerErrorResponseIfHealthCheckFails(): void
     {
         $checks = [
@@ -94,6 +97,7 @@ class HealthCheckControllerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillReturn404IfAccessTokenSpecifiedButNotPresent(): void
     {
         Config::set('health-check.access_token', 'whatever-value');
@@ -105,6 +109,7 @@ class HealthCheckControllerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillReturnResponseIfAccessTokenSpecifiedAndPresent(): void
     {
         $checks = [
@@ -128,6 +133,7 @@ class HealthCheckControllerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillPassIfExtendedChecksPass(): void
     {
         $checks = [
@@ -176,6 +182,7 @@ class HealthCheckControllerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillFailIfExtendedChecksFail(): void
     {
         $checks = [
@@ -216,6 +223,7 @@ class HealthCheckControllerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillReturnOkIfNoChecksConfigured(): void
     {
         Config::set('health-check.checkers', []);

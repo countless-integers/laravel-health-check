@@ -31,6 +31,7 @@ class PingChecker implements HealthCheckerInterface
         $this->config = $config;
     }
 
+    #[\Override]
     public function checkHealth(): HealthCheckReportInterface
     {
         $report = new AggregateReport();

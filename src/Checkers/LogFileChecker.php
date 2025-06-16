@@ -24,6 +24,7 @@ class LogFileChecker implements HealthCheckerInterface
         $this->config = $config;
     }
 
+    #[\Override]
     public function checkHealth(): HealthCheckReportInterface
     {
         $path = $this->config['log_path'] ?? '/var/log/laravel.log';

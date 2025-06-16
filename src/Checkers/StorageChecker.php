@@ -25,6 +25,7 @@ class StorageChecker implements HealthCheckerInterface
         $this->config = $config;
     }
 
+    #[\Override]
     public function checkHealth(): HealthCheckReportInterface
     {
         $drives = $this->config['drives'];

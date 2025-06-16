@@ -7,6 +7,7 @@ namespace Tests\Unit\Checkers;
 use CountlessIntegers\LaravelHealthCheck\Checkers\DbChecker;
 use Tests\AppTestCase;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\Test;
 
 class DbCheckerTest extends AppTestCase
 {
@@ -18,6 +19,7 @@ class DbCheckerTest extends AppTestCase
      * synchronous here, so we need to call the `checkHealth` method
      * before actually checking argument values.
      */
+    #[Test]
     public function itWillSucceedIfAKeyCanBeSetAndRetrieved(): void
     {
         $checker = new DbChecker([

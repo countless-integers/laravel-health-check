@@ -12,10 +12,12 @@ use Tests\AppTestCase;
 use Illuminate\Support\Facades\Config;
 use InvalidArgumentException;
 use Mockery\MockInterface;
+use PHPUnit\Framework\Attributes\Test;
 
 class HealthCheckServiceTest extends AppTestCase
 {
     /** @test */
+    #[Test]
     public function itCanRunChecks(): void
     {
         $checks = [
@@ -59,6 +61,7 @@ class HealthCheckServiceTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itCanReportLackOfHealth(): void
     {
         $checks = [
@@ -95,6 +98,7 @@ class HealthCheckServiceTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillNotCrashBecauseOfAChecker(): void
     {
         $checks = [
@@ -134,6 +138,7 @@ class HealthCheckServiceTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillReportHealthIfEmptyChecksArrayPassed(): void
     {
         $service = $this->app->make(HealthCheckService::class);
