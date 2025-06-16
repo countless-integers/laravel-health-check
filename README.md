@@ -4,7 +4,7 @@
 
 ## Installation
 
-PHP 8.0+ is required.
+PHP 8.2+ is required.
 
     $ composer require countless-integers/laravel-health-check
     $ php artisan vendor:publish
