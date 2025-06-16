@@ -6,6 +6,8 @@ namespace Tests\Unit\Checkers;
 
 use CountlessIntegers\LaravelHealthCheck\Checkers\LogFileChecker;
 use Tests\AppTestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class LogFileCheckerTest extends AppTestCase
 {
@@ -15,6 +17,8 @@ class LogFileCheckerTest extends AppTestCase
      *
      * @param array $config
      */
+    #[Test]
+    #[DataProvider('provideInvalidLogPaths')]
     public function itWillFailIfTheLogFilePathIsInvalid(array $config): void
     {
         $checker = new LogFileChecker($config);
@@ -25,7 +29,7 @@ class LogFileCheckerTest extends AppTestCase
         $this->assertEmpty($report->getDetails());
     }
 
-    public function provideInvalidLogPaths(): array
+    public static function provideInvalidLogPaths(): array
     {
         return [
             'empty_path' => [[
@@ -38,6 +42,7 @@ class LogFileCheckerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillReportHealthIfTheLogFilePathIsWritable(): void
     {
         $checker = new LogFileChecker([

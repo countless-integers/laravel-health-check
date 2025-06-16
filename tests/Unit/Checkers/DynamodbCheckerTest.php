@@ -11,6 +11,7 @@ use Aws\Result;
 use CountlessIntegers\LaravelHealthCheck\Checkers\DynamodbChecker;
 use Tests\AppTestCase;
 use Mockery;
+use PHPUnit\Framework\Attributes\Test;
 
 class DynamodbCheckerTest extends AppTestCase
 {
@@ -27,6 +28,7 @@ class DynamodbCheckerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itCanPassUsingAllTables(): void
     {
         $result = new Result(['TableNames' => ['my-table']]);
@@ -40,6 +42,7 @@ class DynamodbCheckerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itCanPassUsingIndividualTables(): void
     {
         $healthy_table = 'healthy-table';
@@ -61,6 +64,7 @@ class DynamodbCheckerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillFailIfOneOfTheTablesIsNotHealthy(): void
     {
         $fake_table_name = 'fake-table';
@@ -92,6 +96,7 @@ class DynamodbCheckerTest extends AppTestCase
     }
 
     /** @test */
+    #[Test]
     public function itWillFailIfTableIsNotFound(): void
     {
         $exception_mock = Mockery::mock(DynamoDbException::class);
