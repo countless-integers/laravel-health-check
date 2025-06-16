@@ -34,6 +34,7 @@ class SQSChecker implements HealthCheckerInterface
         $this->config = $config;
     }
 
+    #[\Override]
     public function checkHealth(): HealthCheckReportInterface
     {
         $client = AwsFacade::createClient('SQS');

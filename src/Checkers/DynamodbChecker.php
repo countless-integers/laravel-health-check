@@ -34,6 +34,7 @@ class DynamodbChecker implements HealthCheckerInterface
     {
     }
 
+    #[\Override]
     public function checkHealth(): HealthCheckReportInterface
     {
         $this->client = AwsFacade::createClient('DynamoDb');

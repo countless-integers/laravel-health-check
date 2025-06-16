@@ -23,11 +23,13 @@ class CheckerReport implements HealthCheckReportInterface
         $this->details = $details;
     }
 
+    #[\Override]
     public function isHealthy(): bool
     {
         return $this->is_healthy;
     }
 
+    #[\Override]
     public function getDetails(): array
     {
         return $this->details;
@@ -36,6 +38,7 @@ class CheckerReport implements HealthCheckReportInterface
     /**
      * @inheritDoc
      */
+    #[\Override]
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), JSON_THROW_ON_ERROR, 512);
@@ -44,6 +47,7 @@ class CheckerReport implements HealthCheckReportInterface
     /**
      * @inheritDoc
      */
+    #[\Override]
     public function toArray()
     {
         return [

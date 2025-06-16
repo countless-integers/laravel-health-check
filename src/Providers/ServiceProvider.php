@@ -18,6 +18,7 @@ class ServiceProvider extends AggregateServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../Http/routes.php');
     }
 
+    #[\Override]
     public function register()
     {
         $this->app->singleton(HealthCheckService::class, static function () {

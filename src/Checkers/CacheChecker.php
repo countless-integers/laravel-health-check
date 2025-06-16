@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 
 class CacheChecker implements HealthCheckerInterface
 {
+    #[\Override]
     public function checkHealth(): HealthCheckReportInterface
     {
         $prefix = 'health-check-key-';
